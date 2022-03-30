@@ -1,25 +1,29 @@
-import './PageContainer.module.css'
-import SideNav from '../navigation/SideNav'
-import React, { useState } from 'react'
-import { Routes, Route} from "react-router-dom"
-import SignIn from '../SignIn'
+import React from 'react'
 import { Layout} from 'antd'
 import './PageContainer.module.css'
-import Burger from '../navigation/Burger'
+import AllRoutes from '../navigation/AllRoutes'
+import SideNav from '../navigation/SideNav'
+import './PageContainer.module.css'
 
 const PageContainer = () => {
-  const [collapsed, setCollapsed] = useState(false)
   const { Header, Content, Footer, Sider } = Layout
-  const toggle = () => setCollapsed(!collapsed) //style={{height : '100vh'}}
   return (
     <Layout style={{height : '100vh'}}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider 
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          // position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+        }}
+      >
         <div className="logo"> <img src="./puch .png"/>  </div>
         <SideNav />
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
-          <Burger collapsed toggle={toggle}/>
         </Header>
         <Content
           className="site-layout-background"
@@ -29,7 +33,7 @@ const PageContainer = () => {
             minHeight: 280,
           }}
         >
-          Content
+          <AllRoutes />
         </Content>
       </Layout>
     </Layout>
