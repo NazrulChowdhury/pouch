@@ -6,10 +6,10 @@ import passportMiddleware from './passport.middleware.js';
 
 const middleware = express.Router()
 
-middleware.use(cors({
-    Origin: "*", 
+middleware.use(cors({ 
+    origin: "http://localhost:3000",//process.env.CLIENT_HOST_URL, 
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials:  false //true // allow session cookie from browser to pass through
+    credentials: true // allow session cookie from browser to pass through
 }))
 middleware.use(express.json())
 middleware.use(morgan('common'))

@@ -20,10 +20,10 @@ export default session({
     store: new RedisStore({ client: redisClient }),
     secret : process.env.REDIS_SESSION_SECRET,
     resave: false,
-    saveUninitialized : false,
+    saveUninitialized : true,
     cookie :{
         httpOnly: true, // prevents client side js from reading the cookie
-        secure: process.env.COOKIE_SECURE, // need to be true in production to accept req from https only
+        secure: false, // need to be true in production to accept req from https only
         maxAge: 86400*1000*60
     }
 })
