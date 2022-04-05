@@ -3,7 +3,7 @@ import { Routes, Route} from "react-router-dom"
 import Home from '../Home'
 import SignIn from '../SignIn'
 
-const AllRoutes = () => {
+const Content = () => {
   return (
     <>
        <Routes>
@@ -14,4 +14,4 @@ const AllRoutes = () => {
   )
 }
 
-export default AllRoutes
+export default Content

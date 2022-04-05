@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import PageContainer from "./component/pageContainer/PageContainer"
+import Content from "./component/Layout/Content";
+import PageLayout from "./component/Layout/PageLayout"
 import { useGlobalContext } from "./context/globalContext"
 import { getSession } from "./functions/api.js";
 
@@ -14,7 +15,9 @@ function App() {
   useEffect(() => getSession(user, setUser),[])
 
   return (
-    <PageContainer />
+    <PageLayout>
+      <Content />
+    </PageLayout>
   )
 }
 
