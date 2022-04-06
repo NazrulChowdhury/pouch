@@ -1,23 +1,37 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom"
-import Content from "./component/Layout/Content";
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useQuery } from "react-query"
+import Content from "./component/Layout/Content"
+import FullPageSpinner from "./component/Layout/FullPageSpinner"
 import PageLayout from "./component/Layout/PageLayout"
 import { useGlobalContext } from "./context/globalContext"
-import { getSession } from "./functions/api.js";
+import { getSession } from "./functions/api.js"
 
 function App() {
   const {user, setUser} = useGlobalContext()
-  const navigate = useNavigate()
+  const [initialRender, setInitialRender] = useState(true)
   axios.defaults.baseURL = process.env.REACT_APP_SERVER_HOST_URL
 
-  useEffect(() => !user? navigate('/signIn') :navigate('/'),[user])
-  useEffect(() => getSession(user, setUser),[])
+  const {isLoading , refetch: fetchSession } = useQuery('getSession', () => getSession(user, setUser),{
+    enabled : false
+  })
+
+  useEffect(() => {
+    fetchSession()
+    setInitialRender(false)
+  },[])
 
   return (
-    <PageLayout>
-      <Content />
-    </PageLayout>
+    <>
+      { !initialRender && !isLoading &&
+        <PageLayout>
+          <Content />
+        </PageLayout>
+      }
+      {(initialRender || isLoading) && 
+        <FullPageSpinner />
+      }
+    </>
   )
 }
 

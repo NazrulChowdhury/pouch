@@ -1,9 +1,15 @@
-import React from 'react'
-import { Routes, Route} from "react-router-dom"
+import React, {useEffect} from 'react'
+import { Routes, Route, useNavigate} from "react-router-dom"
+import { useGlobalContext } from '../../context/globalContext'
 import Home from '../Home'
 import SignIn from '../SignIn'
 
 const Content = () => {
+  const {user} = useGlobalContext()
+  const navigate = useNavigate()
+
+  useEffect(() => !user? navigate('/signIn') :navigate('/'),[user])
+
   return (
     <>
        <Routes>
