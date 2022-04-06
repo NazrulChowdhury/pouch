@@ -23,7 +23,7 @@ export default session({
     saveUninitialized : true,
     cookie :{
         httpOnly: true, // prevents client side js from reading the cookie
-        secure: false, // need to be true in production to accept req from https only
+        secure: process.env.NODE_ENV === 'development' ? false : true, 
         maxAge: 86400*1000*60
     }
 })
