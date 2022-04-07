@@ -10,11 +10,10 @@ export const getUser = async(provider, id) => {
 export const getUserById = async(id) =>{
     return await User.findById(id)
 }
-export const createUser = async(profile) =>{
-    const { sub, given_name, family_name, email, picture} = profile
+export const createGoogleUser = async(profile) =>{
+    const { sub, name, email, picture} = profile
     return await new User({
-        firstName:given_name,     
-        lastName: family_name,
+        name : name,
         email:email,
         platform:{
           googleID:sub
@@ -23,7 +22,17 @@ export const createUser = async(profile) =>{
     })
     .save()
 }
-
+export const createGithubUser = async(profile) =>{
+    const { id, name, avatar_url} = profile
+    return await new User({
+        name : name,
+        platform:{
+          githubID: id
+        },
+        picture : avatar_url  
+    })
+    .save()
+}
 export const updateUserPicture = async(id, picture) => {
     return await User.updateOne({_id : id}, {picture})
 }

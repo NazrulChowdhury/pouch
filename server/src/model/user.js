@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-    firstName:{
-        type:String
-    },
-    lastName:{
+    name:{
         type:String 
     },
     email:{
@@ -15,6 +12,7 @@ const userSchema = mongoose.Schema({
     },
     platform:{
         googleID: String,
+        githubID : String
     },
 })
 const User = mongoose.model('User', userSchema)

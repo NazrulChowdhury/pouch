@@ -4,8 +4,8 @@ export const getSession = async(req, res, next)=>{
     if(req.user){
         try{
            const user = await getUserById(req.user) 
-           const {firstName, lastName, picture} = user
-           res.send({firstName, lastName, picture})
+           const {name, picture, email} = user
+           res.send({name, picture, email})
         } catch(error){
             next(error)
         }
