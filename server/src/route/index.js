@@ -1,9 +1,12 @@
-import expres from "express"
+import express from "express"
 import { getSession } from "../controller/user.js"
-import passportRouter from "./auth/passportAuth.js"
+import { errorHandler } from "../middleware/errorHandler.js"
 
-const router = expres.Router()
+const router = express.Router()
 router.get('/getSession', getSession)
+
+//handle errors
+router.use(errorHandler)
 
 
 export default router
