@@ -1,20 +1,21 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route, useNavigate} from "react-router-dom"
 import { useGlobalContext } from '../../context/globalContext'
 import Home from '../Home'
 import SignIn from '../SignIn'
 
 const Content = () => {
+
   const {user} = useGlobalContext()
   const navigate = useNavigate()
 
-  useEffect(() => !user? navigate('/signIn') :navigate('/'),[user])
+  useEffect(() => !user? navigate('/signin') : null,[])
 
   return (
     <>
        <Routes>
             <Route  path="/" element = {<Home />}/>  
-            <Route exact path="/signIn" element = {<SignIn />}/>
+            <Route  path="/signin" element = {<SignIn />}/> 
        </Routes>
     </>
   )

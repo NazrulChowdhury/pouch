@@ -9,30 +9,30 @@ const SideNav = () => {
   const {user} = useGlobalContext()
   return (
     <>
-      {user &&
-      <Sider
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          // position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-        }}
-      > 
-        <div className="logo"> <img src={logo}/>  </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-          nav 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-          nav 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-          nav 3
-          </Menu.Item>
-        </Menu>
-      </Sider>
+      { user &&
+        <Sider
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            // position: 'fixed',
+            left: 0,
+            top: 0,
+            bottom: 0,
+          }}
+        > 
+          <div className="logo"> <img src={logo}/>  </div>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu.Item key="1" icon={<UserOutlined />}>
+            nav 1
+            </Menu.Item>
+            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+            nav 2
+            </Menu.Item>
+            <Menu.Item key="3" icon={<UploadOutlined />}>
+            nav 3
+            </Menu.Item>
+          </Menu>
+        </Sider>
       }
   </>
   )

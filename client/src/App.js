@@ -8,12 +8,14 @@ import { useGlobalContext } from "./context/globalContext"
 import { getSession } from "./functions/api.js"
 
 function App() {
-  const {user, setUser} = useGlobalContext()
+  const {setUser} = useGlobalContext()
   const [initialRender, setInitialRender] = useState(true)
   axios.defaults.baseURL = process.env.REACT_APP_SERVER_HOST_URL
 
-  const {isLoading , refetch: fetchSession } = useQuery('getSession', () => getSession(user, setUser),{
-    enabled : false
+  const {isLoading , refetch: fetchSession, } = useQuery(
+    'getSession', () => getSession(),{
+      onSuccess : (data) => setUser(data),
+      enabled : false
   })
 
   useEffect(() => {
@@ -28,9 +30,7 @@ function App() {
           <Content />
         </PageLayout>
       }
-      {(initialRender || isLoading) && 
-        <FullPageSpinner />
-      }
+      { isLoading && <FullPageSpinner/> }
     </>
   )
 }
