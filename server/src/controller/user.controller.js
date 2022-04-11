@@ -1,4 +1,4 @@
-import { getUserById } from "../service/user.js"
+import { getUserById } from "../service/user.service.js"
 
 export const getSession = async(req, res, next)=>{ 
     if(req.user){

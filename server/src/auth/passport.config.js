@@ -2,7 +2,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import { Strategy as GitHubStrategy } from 'passport-github' 
 import passport from 'passport'
 import dotenv from 'dotenv'
-import { createGoogleUser, getUser, createGithubUser } from '../service/user.js'
+import { createGoogleUser, getUser, createGithubUser } from '../service/user.service.js'
 dotenv.config()
 
 passport.serializeUser((user, done)=> done(null, user.id))
