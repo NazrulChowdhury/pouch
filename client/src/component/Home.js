@@ -1,21 +1,38 @@
-import { message } from 'antd'
-import axios from 'axios'
-import React from 'react'
+import React, { useState } from "react"
+import { useForm } from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
+import MultiSelect from "./formSupport/MultiSelect"
 
 const Home = () => {
-  const clickhandler = () => {
-    axios.get('/api/testError')
-    .then(res => console.log('result is', res.data))
-    .catch(err =>{ 
-      message.error(err.response.data)
-    })
-  }
-  return (
-    <div>
-      welcome to homePage!
-      <button onClick={clickhandler}>click</button>
+  const [tags, setTags] = useState('')
+  const schema = yup.object({
+    title: yup.string().required(),
+    description: yup.string().required(),
+  }).required()
+  //  yup.array().of(yup.string())
 
-    </div>
+  const { register, handleSubmit, formState:{ errors } } = useForm({
+    resolver: yupResolver(schema)
+  })
+  const onSubmit = data => console.log(data)
+  const colours =['red', 'yellow', 'green', 'orange', 'grey']
+  console.log(tags)
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("title")} />
+      <p>{errors.firstName?.message}</p>
+        
+      <input {...register("description")} />
+      <p>{errors.age?.message}</p>
+
+      <MultiSelect 
+        setState = {setTags}
+        options = {colours}
+      />
+      
+      <input type="submit" />
+    </form>
   )
 }
 

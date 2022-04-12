@@ -6,6 +6,7 @@ import FullPageSpinner from "./component/Layout/FullPageSpinner"
 import PageLayout from "./component/Layout/PageLayout"
 import { useGlobalContext } from "./context/globalContext"
 import { getSession } from "./functions/api.js"
+import { message } from 'antd'
 
 function App() {
   const {setUser} = useGlobalContext()
@@ -14,7 +15,8 @@ function App() {
 
   const {isLoading , refetch: fetchSession, } = useQuery(
     'getSession', () => getSession(),{
-      onSuccess : (data) => setUser(data),
+      onSuccess : data => setUser(data),
+      onError : error => message.error(error.response.data), 
       enabled : false
   })
 
