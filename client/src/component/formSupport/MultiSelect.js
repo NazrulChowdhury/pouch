@@ -3,7 +3,7 @@ import { colourOptions } from "./data.js"
 import { default as ReactSelect } from "react-select"
 import { components } from "react-select"
 
-const MultiSelect = ({setState, options}) => { 
+const MultiSelect = ({setState, options, reactHookFormRegister}) => { 
     const [optionSelected, setOptionSelected] = useState('') 
     const labeledOptions = options.map(item => {
         return {
@@ -24,6 +24,7 @@ const MultiSelect = ({setState, options}) => {
                 type="checkbox"
                 checked={props.isSelected}
                 onChange={() => null}
+                {...reactHookFormRegister("postTags")}
               />{" "}
               <label>{props.label}</label>
             </components.Option>

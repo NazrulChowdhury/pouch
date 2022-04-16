@@ -5,31 +5,39 @@ import * as yup from "yup"
 import MultiSelect from "./formSupport/MultiSelect"
 
 const Home = () => {
-  const [tags, setTags] = useState('')
+  const [selectedTags, setSelectedTags] = useState('')
   const schema = yup.object({
-    title: yup.string().required(),
-    description: yup.string().required(),
+    title: yup.string()
+    .max(200,'maximum 200 characters allowed!')
+    .required('please enter a title!'),
+    description: yup.string()
+    .max(5000,'maximum 5000 characters allowed!')
+    .required('please enter a description!'),
+    postTags : yup.array()
+    .of(yup.string())
+    .required('please select or add a custom tag!')
   }).required()
-  //  yup.array().of(yup.string())
 
   const { register, handleSubmit, formState:{ errors } } = useForm({
     resolver: yupResolver(schema)
   })
   const onSubmit = data => console.log(data)
   const colours =['red', 'yellow', 'green', 'orange', 'grey']
-  console.log(tags)
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input {...register("title")} />
-      <p>{errors.firstName?.message}</p>
+      <p style={{color : 'red'}}>{errors.title?.message}</p>
         
       <input {...register("description")} />
-      <p>{errors.age?.message}</p>
+      <p style={{color : 'red'}}>{errors.description?.message}</p>
 
       <MultiSelect 
-        setState = {setTags}
+        setState = {setSelectedTags}
         options = {colours}
+        reactHookFormRegister = {register}
       />
+      <p style={{color : 'red'}}>{errors.postTags?.message}</p>
       
       <input type="submit" />
     </form>
