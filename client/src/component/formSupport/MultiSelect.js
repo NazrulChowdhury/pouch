@@ -1,9 +1,8 @@
 import React, { Component, useState } from "react"
-import { colourOptions } from "./data.js"
 import { default as ReactSelect } from "react-select"
 import { components } from "react-select"
 
-const MultiSelect = ({setState, options, reactHookFormRegister}) => { 
+const MultiSelect = ({setState, options}) => { 
     const [optionSelected, setOptionSelected] = useState('') 
     const labeledOptions = options.map(item => {
         return {
@@ -11,7 +10,7 @@ const MultiSelect = ({setState, options, reactHookFormRegister}) => {
             label : item
         }
     })
-    const   handleChange = (selected) => {   
+    const handleChange = (selected) => {   
         setOptionSelected(selected)
         const items = selected.map(item => item.value)
         setState(items)
@@ -24,7 +23,6 @@ const MultiSelect = ({setState, options, reactHookFormRegister}) => {
                 type="checkbox"
                 checked={props.isSelected}
                 onChange={() => null}
-                {...reactHookFormRegister("postTags")}
               />{" "}
               <label>{props.label}</label>
             </components.Option>
@@ -33,7 +31,7 @@ const MultiSelect = ({setState, options, reactHookFormRegister}) => {
     } 
 
     return(
-        <span
+      <span
         // class="d-inline-block"
         data-toggle="popover"
         data-trigger="focus"
