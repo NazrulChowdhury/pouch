@@ -1,6 +1,5 @@
 import Post from "../model/post.model.js"
 
-export const getAllPosts = () => {}
 export const createPost = async(post, user) => { 
     const newPost = { 
         userId : user,
@@ -9,5 +8,8 @@ export const createPost = async(post, user) => {
         tags : post.tags
     } 
     return await new Post(newPost).save()
+}
+export const getAllPosts = async(user) => {
+    return await Post.find({userId : user})
 }
 
