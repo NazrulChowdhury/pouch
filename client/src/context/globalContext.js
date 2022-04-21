@@ -5,7 +5,11 @@ export const useGlobalContext = () => useContext(GlobalContext)
 
 const GlobalContextProvider = ({children}) => {
     const [user, setUser] = useState(false)
-    const value = {user, setUser}
+    const [navs, setNavs] = useState([])
+    const value = {
+        user, setUser,
+        navs, setNavs
+    }
     return (
         <GlobalContext.Provider value={value}>
             {children}

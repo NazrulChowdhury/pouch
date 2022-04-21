@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Menu , Layout} from 'antd'
-import { UploadOutlined, UserOutlined,VideoCameraOutlined} from '@ant-design/icons'
 import logo from '../../images/pouch.png'
 import { useGlobalContext } from '../../context/globalContext'
+import { useQuery } from 'react-query'
+import { getNavs } from '../../functions/api'
 
 const SideNav = () => {
   const {Sider} = Layout
-  const {user} = useGlobalContext()
+  const {user, setNavs, navs} = useGlobalContext()
+
+  const {data, refetch} = useQuery('getNavs', getNavs,{
+    enabled : false,
+    onSuccess : (data) => setNavs(data)
+  })
+
+  useEffect(() => refetch(),[])
+
   return (
     <>
       { user &&
@@ -22,15 +31,9 @@ const SideNav = () => {
         > 
           <div className="logo"> <img src={logo}/>  </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
-            </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-            </Menu.Item>
+            { data && data.map(item =>{ 
+              return (<Menu.Item key={item}>{item}</Menu.Item>)
+            })}
           </Menu>
         </Sider>
       }
