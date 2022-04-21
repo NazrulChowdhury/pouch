@@ -8,7 +8,7 @@ import { submitPost } from "../functions/api"
 import { message } from "antd"
 
 const Home = () => {
-  const [selectedTags, setSelectedTags] = useState('')
+  const [selectedTags, setSelectedTags] = useState([])
   const [tagError, setTagError] = useState('')
   
   const schema = yup.object({
@@ -50,7 +50,8 @@ const Home = () => {
       <p style={{color : 'red'}}>{errors.description?.message}</p>
 
       <MultiSelect 
-        setState = {setSelectedTags}
+        selectedTags = {selectedTags}
+        setSelectedTags = {setSelectedTags}
         options = {colours}
       />
       {tagError && <p style={{color : 'red'}}>{tagError}</p>}

@@ -1,17 +1,55 @@
+import { Button } from "antd"
 import React, { useState } from "react"
-import { useForm } from "react-hook-form"
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from "yup"
 
-const CustomTag = () => {
-    const schema = yup.object({
-        title: yup.string()
-        .max(200,'maximum 200 characters allowed!')
-        .required('please enter a title!'),
-      }).required()
+const CustomTag = ({selectedTags, setSelectedTags, optionSelected, setOptionSelected}) => {
+  const [ShowInput, setShowInput] = useState(false)
+  const [showAddTags, setShowAddTags] = useState(true)
+  const [newTag, setNewTag] = useState('')
+  const [tagError, setTagError] = useState('')
+
+  const addHandler = () => {
+    if(newTag){
+      if(newTag.length > 50){
+        setTagError('tag is too long! maximum 50 characters allowed')
+        return
+      }
+      setSelectedTags([...selectedTags,newTag])
+      setOptionSelected([...optionSelected,{value : newTag, label : newTag}])
+      setNewTag('')
+      setTagError('')
+    } 
+  }
 
   return (
-    <div>CustomTag</div>
+    <div>
+      { showAddTags &&
+      <div>
+        <Button
+          onClick={() => {
+            setShowInput(true)
+            setShowAddTags(false)
+          }}
+        >
+          add new tag 
+        </Button>
+      </div>
+      }
+      {ShowInput && 
+      <div>
+        <input 
+          type='text' 
+          value={newTag}
+          onChange={(e)=> setNewTag(e.target.value)}
+        />
+        <Button
+          onClick={() => addHandler()}
+        >
+          add
+        </Button>
+      </div>
+      }
+      {tagError && <p style={{color : 'red'}}>{tagError}</p>}
+    </div>
   )
 }
 

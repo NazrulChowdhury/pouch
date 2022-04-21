@@ -1,8 +1,9 @@
 import React, { Component, useState } from "react"
 import { default as ReactSelect } from "react-select"
 import { components } from "react-select"
+import CustomTag from "./CustomTag"
 
-const MultiSelect = ({setState, options}) => { 
+const MultiSelect = ({selectedTags,setSelectedTags, options}) => { 
     const [optionSelected, setOptionSelected] = useState('') 
     const labeledOptions = options.map(item => {
         return {
@@ -13,7 +14,7 @@ const MultiSelect = ({setState, options}) => {
     const handleChange = (selected) => {   
         setOptionSelected(selected)
         const items = selected.map(item => item.value)
-        setState(items)
+        setSelectedTags(items)
     }
     const Option = (props) => {
         return (
@@ -31,25 +32,33 @@ const MultiSelect = ({setState, options}) => {
     } 
 
     return(
-      <span
-        // class="d-inline-block"
-        data-toggle="popover"
-        data-trigger="focus"
-        data-content="Please selecet account(s)"
-      >
-        <ReactSelect
-          options={labeledOptions}
-          isMulti
-          closeMenuOnSelect={false}
-          hideSelectedOptions={false}
-          components={{
-            Option
-          }}
-          onChange={handleChange}
-          allowSelectAll={true}
-          value={optionSelected}
+      <div>
+        <span
+          // class="d-inline-block"
+          data-toggle="popover"
+          data-trigger="focus"
+          data-content="Please selecet account(s)"
+        >
+          <ReactSelect
+            options={labeledOptions}
+            isMulti
+            closeMenuOnSelect={false}
+            hideSelectedOptions={false}
+            components={{
+              Option
+            }}
+            onChange={handleChange}
+            allowSelectAll={true}
+            value={optionSelected}
+          />
+        </span>
+        <CustomTag 
+          selectedTags = {selectedTags}
+          setSelectedTags = {setSelectedTags} 
+          optionSelected = {optionSelected}
+          setOptionSelected = {setOptionSelected}
         />
-      </span>
+      </div>
     )
 }
 
