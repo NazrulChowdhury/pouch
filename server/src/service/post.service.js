@@ -6,7 +6,7 @@ export const createPost = async(post, user) => {
         userId : user,
         postTitle : post.title,
         postDescription : post.description,
-        tag : post.tag
+        tags : post.tags
     } 
     return await new Post(newPost).save()
 }

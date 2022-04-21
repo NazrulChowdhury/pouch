@@ -10,7 +10,7 @@ const postSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    tag : [String]
+    tags : [String]
 })
 
 const Post = mongoose.model('Post', postSchema)
