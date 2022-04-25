@@ -16,9 +16,21 @@ export const submitPost = async(data) => {
     })
     return response.data
 }
+
 export const getNavs = async()=>{
     const response =  await axios('/api/post/getNavs',{
         withCredentials : true
     })
     return response.data
+}
+
+export const getPostsByName = async(name) => {
+    const response =  await axios(`/api/post/getPostsByTag/${name}`,{
+        withCredentials : true
+    })
+    return response.data
+}
+
+export const getPostById = async () => {
+    const response = await axios()
 }

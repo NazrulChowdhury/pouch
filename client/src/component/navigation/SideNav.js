@@ -4,10 +4,12 @@ import logo from '../../images/pouch.png'
 import { useGlobalContext } from '../../context/globalContext'
 import { useQuery } from 'react-query'
 import { getNavs } from '../../functions/api'
+import { useNavigate } from 'react-router-dom'
 
 const SideNav = () => {
   const {Sider} = Layout
   const {user, setNavs, navs} = useGlobalContext()
+  const navigate = useNavigate()
 
   const {refetch: fetchNavItems, data } = useQuery(
     'getNavs', getNavs,{ 
@@ -37,7 +39,14 @@ const SideNav = () => {
           <div className="logo"> <img src={logo}/>  </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             { data && data.map(item =>{ 
-              return (<Menu.Item key={item}>{item}</Menu.Item>)
+              return (
+                <Menu.Item 
+                  key={item}
+                  onClick = {() => navigate(`tag/${item}`)}
+                >
+                  {item}
+                </Menu.Item>
+              )
             })}
           </Menu>
         </Sider>
