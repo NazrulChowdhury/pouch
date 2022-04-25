@@ -6,8 +6,10 @@ import MultiSelect from "./formSupport/MultiSelect"
 import { useMutation } from "react-query"
 import { submitPost } from "../functions/api"
 import { message } from "antd"
+import { useGlobalContext } from "../context/globalContext"
 
 const Home = () => {
+  const {navs} = useGlobalContext()
   const [selectedTags, setSelectedTags] = useState([])
   const [tagError, setTagError] = useState('')
   
@@ -37,7 +39,6 @@ const Home = () => {
     mutateAsync(data) 
     }
   }
-  const colours =['red', 'yellow', 'green', 'orange', 'grey']
 
   useEffect(() => selectedTags.length ? setTagError('') : null,[selectedTags])
 
@@ -52,7 +53,7 @@ const Home = () => {
       <MultiSelect 
         selectedTags = {selectedTags}
         setSelectedTags = {setSelectedTags}
-        options = {colours}
+        options = {navs}
       />
       {tagError && <p style={{color : 'red'}}>{tagError}</p>}
       

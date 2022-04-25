@@ -14,11 +14,12 @@ function App() {
   axios.defaults.baseURL = process.env.REACT_APP_SERVER_HOST_URL
 
   const {isLoading , refetch: fetchSession, } = useQuery(
-    'getSession', () => getSession(),{
+    'getSession', getSession,{
       onSuccess : data => setUser(data),
       onError : error => message.error(error.response.data), 
       enabled : false
-  })
+    }
+  )
 
   useEffect(() => {
     fetchSession()
