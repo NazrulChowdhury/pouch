@@ -26,3 +26,9 @@ export const getAllPostsByTagName = async (user,tagName) => {
     )
 }
 
+export const getPostById = async(postId) => {
+    return await Post.find({
+        "_id" : postId
+    })
+}
+
