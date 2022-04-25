@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
-import MultiSelect from "./formSupport/MultiSelect"
+import MultiSelect from "../formSupport/MultiSelect"
 import { useMutation } from "react-query"
-import { submitPost } from "../functions/api"
+import { submitPost } from "../../functions/api"
 import { message } from "antd"
-import { useGlobalContext } from "../context/globalContext"
+import { useGlobalContext } from "../../context/globalContext"
 
 const Home = () => {
   const {navs} = useGlobalContext()
@@ -44,10 +44,13 @@ const Home = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("title")} />
+      <input 
+        {...register("title")} 
+        placeholder = 'title here'
+      />
       <p style={{color : 'red'}}>{errors.title?.message}</p>
         
-      <input {...register("description")} />
+      <textarea {...register("description")} />
       <p style={{color : 'red'}}>{errors.description?.message}</p>
 
       <MultiSelect 

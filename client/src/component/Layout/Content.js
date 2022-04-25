@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, useNavigate} from "react-router-dom"
 import { useGlobalContext } from '../../context/globalContext'
-import Home from '../Home'
-import SignIn from '../SignIn'
+import Home from '../pages/Home'
+import SignIn from '../pages/SignIn'
 
 const Content = () => {
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import googleButton from '../images/googleButton.png'
-import githubButton from '../images/githubLogin.png'
-import { useGlobalContext } from '../context/globalContext.js'
+import googleButton from '../../images/googleButton.png'
+import githubButton from '../../images/githubLogin.png'
+import { useGlobalContext } from '../../context/globalContext.js'
 import { useNavigate } from 'react-router-dom'
 const SignIn = () => {
   const {user} = useGlobalContext()
