@@ -1,4 +1,4 @@
-import { createPost } from "../service/post.service.js"
+import { createPost, getAllPostsByTagName } from "../service/post.service.js"
 
 export const createNewPost = async(req, res, next) => { 
     try{
@@ -7,4 +7,10 @@ export const createNewPost = async(req, res, next) => {
     } catch (error){
         next(error)
     }
+}
+
+export const getAllPostsByTag = async(req, res, next) => {
+    const {tagName} = req.params
+    const response = await getAllPostsByTagName(req.user, tagName)
+    res.send(response)
 }

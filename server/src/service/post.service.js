@@ -9,7 +9,20 @@ export const createPost = async(post, user) => {
     } 
     return await new Post(newPost).save()
 }
+
 export const getAllPosts = async(user) => {
     return await Post.find({userId : user})
+}
+
+export const getAllPostsByTagName = async (user,tagName) => {
+    //return await Post.find({userId : user, tags : [tagName]})
+    return await Post.find(
+        { 
+            userId : user, 
+            tags : {
+                $all: [tagName]
+            }
+        }
+    )
 }
 
