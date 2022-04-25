@@ -31,6 +31,9 @@ export const getPostsByName = async(name) => {
     return response.data
 }
 
-export const getPostById = async () => {
-    const response = await axios()
+export const getPostById = async (id) => {
+    const response = await axios(`/api/post/getPost/${id}`,{
+        withCredentials : true
+    })
+    return response.data
 }
