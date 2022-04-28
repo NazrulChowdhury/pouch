@@ -15,7 +15,7 @@ export const getAllPosts = async(user) => {
 }
 
 export const getAllPostsByTagName = async (user,tagName) => {
-    //return await Post.find({userId : user, tags : [tagName]})
+    
     return await Post.find(
         { 
             userId : user, 
@@ -27,8 +27,14 @@ export const getAllPostsByTagName = async (user,tagName) => {
 }
 
 export const getPostById = async(postId) => {
-    return await Post.find({
+    return await Post.findById({
         "_id" : postId
     })
+}
+
+export const updatePostById = async(data, postId) => {
+    return await Post.updateOne({
+        "_id" : postId
+    }, data)
 }
 
