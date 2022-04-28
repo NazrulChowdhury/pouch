@@ -1,5 +1,5 @@
 import { ApiError } from "../Error/ApiError.js"
-import { createPost, getAllPostsByTagName, getPostById, updatePostById } from "../service/post.service.js"
+import { createPost, deletePostById, getAllPostsByTagName, getPostById, updatePostById } from "../service/post.service.js"
 
 export const createNewPost = async(req, res, next) => { 
     try{
@@ -29,6 +29,7 @@ export const getPost = async(req, res, next) => {
         next(error)
     }
 }
+
 export const updatePost = async(req, res, next) => {
     const {title, description, tags, postId } = req.body.data
     const postData = {
@@ -39,10 +40,23 @@ export const updatePost = async(req, res, next) => {
     }
     try{
         const result = await updatePostById(postData, postId)
-        if(result.modifiedCount > 0) { 
-            res.send('success!')
+        if('_id' in result) { 
+            res.send(result)
         } else{
             next(ApiError.badRequest('update failed!'))
+        }
+    }catch(error){
+        next(error)
+    }
+}
+
+export const deletePost = async(req, res, next) => {
+    try{
+        const response = await deletePostById(req.params.postId)
+        if(response.deletedCount > 0){
+            res.send('post deleted!')
+        } else{
+            next(ApiError.badRequest('request failed!'))
         }
     }catch(error){
         next(error)

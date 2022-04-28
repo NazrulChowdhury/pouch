@@ -33,8 +33,17 @@ export const getPostById = async(postId) => {
 }
 
 export const updatePostById = async(data, postId) => {
-    return await Post.updateOne({
+    return await Post.findByIdAndUpdate({
         "_id" : postId
-    }, data)
+    }, 
+    data,
+    {new : true}
+    )
+}
+
+export const deletePostById = async(postId)=>{
+    return await Post.deleteOne({
+        "_id" : postId
+    })
 }
 
