@@ -37,3 +37,13 @@ export const getPostById = async (id) => {
     })
     return response.data
 }
+
+export const updatePost = async(data) => {
+    const response = await axios({
+        method : 'POST',
+        withCredentials : true,
+        url : `/api/post/updatePost`,
+        data : {data}
+    })
+    return response.data
+}
