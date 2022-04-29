@@ -2,13 +2,13 @@ import React from 'react'
 import { Modal, message } from 'antd'
 import { useQuery } from 'react-query'
 import { deletePostById } from '../../functions/api'
-import { usePostContext } from './postContext'
 import { useNavigate } from 'react-router-dom'
 import { useGlobalContext } from '../../context/globalContext'
+import { usePostContext } from '../../context/postContext'
 
 const DeletePost = () => {
 
-  const {postData} = usePostContext()
+  const {postData} = usePostContext
   const {fetchNavItems} = useGlobalContext()
   const navigate = useNavigate()
   const confirm = Modal.confirm

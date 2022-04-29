@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { getPostById } from '../../functions/api'
 import {useParams } from 'react-router-dom'
 import { message } from 'antd'
-import { usePostContext } from './postContext'
+import { usePostContext } from '../../context/postContext'
 
 const ViewPost = () => {
 

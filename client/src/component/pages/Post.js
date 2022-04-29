@@ -1,6 +1,6 @@
 import React from 'react'
+import { PostContextProvider } from '../../context/postContext'
 import {ViewPost,EditPost} from '../postComponents'
-import { PostContextProvider } from '../postComponents/postContext'
 import EditButton from '../utility/EditButton'
 
 const Post = () => {

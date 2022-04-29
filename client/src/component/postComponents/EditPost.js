@@ -3,7 +3,7 @@ import React from 'react'
 import { useMutation } from 'react-query'
 import { updatePost } from '../../functions/api'
 import PostForm from '../formComponents/PostForm'
-import { usePostContext } from './postContext'
+import { usePostContext } from '../../context/postContext'
 
 const EditPost = () => { 
 
