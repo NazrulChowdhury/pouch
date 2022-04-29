@@ -1,26 +1,15 @@
 import React from 'react'
-import { Menu, Dropdown } from 'antd'
+import { Menu, Dropdown, Button } from 'antd'
 import Cancel from './Cancel'
-import { Modal, Button } from 'antd'
-const confirm = Modal.confirm
+import { usePostContext } from '../postComponents/postContext'
+import { DeletePost } from '../postComponents'
 
-const EditButton = ({edit, setEdit, handleDeletePost}) => { 
+const EditButton = () => { 
+
+  const {edit, setEdit} = usePostContext()
+
   const handleEdit = () => setEdit(true)
   const handleEditCancel = () => setEdit(false)
-  const handleDelete = () => {
-    confirm({
-      title: 'Are you sure delete this post?',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        handleDeletePost()
-      },
-      onCancel() {
-        // do nothing
-      },
-    })
-  }
 
   const menu = (
     <Menu>
@@ -28,7 +17,7 @@ const EditButton = ({edit, setEdit, handleDeletePost}) => {
         <span onClick={handleEdit}>Edit</span>
       </Menu.Item>
       <Menu.Item key = 'delete'>
-        <span onClick={handleDelete}>Delete</span>
+        <DeletePost />
       </Menu.Item>
     </Menu>
   )
@@ -37,9 +26,9 @@ const EditButton = ({edit, setEdit, handleDeletePost}) => {
     <>
       {!edit? (
         <Dropdown overlay={menu}>
-          <a className="ant-dropdown-link" href="#">
+          <Button>
             Hover me 
-          </a>
+          </Button>
         </Dropdown>
       ) : (<Cancel handleEditCancel = {handleEditCancel}/>)
       }

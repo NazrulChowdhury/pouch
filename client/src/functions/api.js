@@ -48,7 +48,7 @@ export const updatePost = async(data) => {
     return response.data
 }
 
-export const deletePost = async(postId) => {
+export const deletePostById = async(postId) => {
     const response = await axios(`/api/post/deletePost/${postId}`)
     return response.data
 }

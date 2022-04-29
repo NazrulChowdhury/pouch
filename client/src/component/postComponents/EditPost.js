@@ -2,10 +2,14 @@ import { message } from 'antd'
 import React from 'react'
 import { useMutation } from 'react-query'
 import { updatePost } from '../../functions/api'
-import PostForm from './PostForm'
+import PostForm from '../formComponents/PostForm'
+import { usePostContext } from './postContext'
 
-const EditPost = ({data, setPostData, setEdit}) => { 
-  const postId = data._id
+const EditPost = () => { 
+
+  const {postData, setPostData, edit,setEdit} = usePostContext()
+  const postId = postData._id
+
   const submitHandler = (data) => { 
     data['postId'] = postId
     mutateAsync(data)
@@ -20,10 +24,14 @@ const EditPost = ({data, setPostData, setEdit}) => {
   })
 
   return (
-    <PostForm 
-      data = {data}
-      submitForm = {submitHandler}
-    />
+    <>
+      { edit ? (
+        <PostForm 
+          data = {postData}
+          submitForm = {submitHandler}
+        /> ) : null 
+      }
+    </>
   )
 }
 export default EditPost
