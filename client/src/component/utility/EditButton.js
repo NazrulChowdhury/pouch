@@ -3,7 +3,7 @@ import { Menu, Dropdown, Button } from 'antd'
 import Cancel from './Cancel'
 import { usePostContext } from '../postComponents/postContext'
 import { DeletePost } from '../postComponents'
-
+import { AiOutlineSetting } from "react-icons/ai"
 const EditButton = () => { 
 
   const {edit, setEdit} = usePostContext()
@@ -27,7 +27,7 @@ const EditButton = () => {
       {!edit? (
         <Dropdown overlay={menu}>
           <Button>
-            Hover me 
+            <AiOutlineSetting />
           </Button>
         </Dropdown>
       ) : (<Cancel handleEditCancel = {handleEditCancel}/>)
