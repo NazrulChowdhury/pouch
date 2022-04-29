@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const SideNav = () => {
   const {Sider} = Layout
-  const {user, setNavs, navs} = useGlobalContext()
+  const {user, setNavs, setFetchNavItems} = useGlobalContext()
   const navigate = useNavigate()
 
   const {refetch: fetchNavItems, data } = useQuery(
@@ -21,6 +21,7 @@ const SideNav = () => {
 
   useEffect(() => {
     fetchNavItems()
+    setFetchNavItems(() => fetchNavItems)
   },[])
 
   return (

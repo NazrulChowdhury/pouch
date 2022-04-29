@@ -1,41 +1,62 @@
 import { message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
-import { getPostById } from '../../functions/api'
+import { useNavigate, useParams } from 'react-router-dom'
+import { deletePost, getPostById } from '../../functions/api'
 import Highlight from 'react-highlight'
-import EditButton from '../utility/Edit'
+import EditButton from '../utility/EditButton'
 import EditPost from '../formComponents/EditPost'
+import { useGlobalContext } from '../../context/globalContext'
 
 const Post = () => {
-    const [edit, setEdit] = useState(false)
-    const {postId} = useParams()
-    const {data, refetch} = useQuery('getPostById',() => getPostById(postId),{
-        enabled : false,
-        onError : (error) => message.error(error.response.data)
-    })
+  const [edit, setEdit] = useState(false)
+  const [postData, setPostData] = useState('')
+  const {postId} = useParams()
+  const navigate = useNavigate()
+  const {fetchNavItems} = useGlobalContext()
 
-    useEffect(() => refetch(),[])
+  const {refetch} = useQuery('getPostById',() => getPostById(postId),{
+    enabled : false,
+    onSuccess : (data) => setPostData(data),
+    onError : (error) => message.error(error.response.data)
+  })
+
+  const {refetch:handleDeletePost} = useQuery('deletePost',() => deletePost(postId),{
+    enabled : false,
+    onSuccess : (data) => {
+      message.success(data)
+      navigate('/')
+      fetchNavItems()
+    },
+    onError : (error) => message.error(error.response.data)
+  })
+
+  useEffect(() => refetch(),[])
 
   return (
     <div> 
-        {data && !edit &&
+        {postData && !edit &&
           <div>
-            <p style={{fontSize : '2rem'}}>{data.postTitle}</p> <br />
+            <p style={{fontSize : '2rem'}}>{postData.postTitle}</p> <br />
             <div style={{whiteSpace: 'pre-wrap'}}>
               <Highlight >
-                  {data.postDescription}
+                  {postData.postDescription}
               </Highlight>
             </div>
           </div>     
         }
         { edit && 
-          <EditPost data = {data} />
+          <EditPost 
+            data = {postData} 
+            setPostData = {setPostData}
+            setEdit = {setEdit}
+          />
         }
         <div>
           <EditButton 
             edit={edit}
             setEdit = {setEdit}
+            handleDeletePost = {handleDeletePost}
           />
         </div>
     </div>
