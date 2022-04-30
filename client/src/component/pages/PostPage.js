@@ -1,20 +1,20 @@
 import React from 'react'
 import { PostContextProvider } from '../../context/postContext'
-import {ViewPost,EditPost} from '../postComponents'
+import {ViewPost, EditPost, Post} from '../postComponents'
 import EditButton from '../utility/EditButton'
 
-const Post = () => {
+const PostPage = () => {
 
   return (
     <div> 
-      <PostContextProvider>
+      <Post>
         <ViewPost />
         <EditPost />
         <EditButton />
-      </PostContextProvider>
+      </Post>
     </div>
   )
 }
 
-export default Post
+export default PostPage
 

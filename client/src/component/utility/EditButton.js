@@ -1,9 +1,9 @@
 import React from 'react'
 import { Menu, Dropdown, Button } from 'antd'
 import Cancel from './Cancel'
-import { usePostContext } from '../postComponents/postContext'
 import { DeletePost } from '../postComponents'
 import { AiOutlineSetting } from "react-icons/ai"
+import { usePostContext } from '../../context/postContext'
 const EditButton = () => { 
 
   const {edit, setEdit} = usePostContext()
