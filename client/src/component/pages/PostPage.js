@@ -1,6 +1,6 @@
 import React from 'react'
-import { PostContextProvider } from '../../context/postContext'
-import {ViewPost, EditPost, Post} from '../postComponents'
+//import {ViewPost, EditPost, Post} from '../postComponents'
+import Post from '../postComponents'
 import EditButton from '../utility/EditButton'
 
 const PostPage = () => {
@@ -8,8 +8,8 @@ const PostPage = () => {
   return (
     <div> 
       <Post>
-        <ViewPost />
-        <EditPost />
+        <Post.ViewPost />
+        <Post.EditPost />
         <EditButton />
       </Post>
     </div>

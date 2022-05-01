@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, Dropdown, Button } from 'antd'
 import Cancel from './Cancel'
-import { DeletePost } from '../postComponents'
+import DeletePost from '../postComponents/DeletePost'
 import { AiOutlineSetting } from "react-icons/ai"
 import { usePostContext } from '../../context/postContext'
 const EditButton = () => { 

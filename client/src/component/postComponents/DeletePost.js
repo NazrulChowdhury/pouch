@@ -8,7 +8,7 @@ import { usePostContext } from '../../context/postContext'
 
 const DeletePost = () => {
 
-  const {postData} = usePostContext
+  const {postData} = usePostContext()
   const {fetchNavItems} = useGlobalContext()
   const navigate = useNavigate()
   const confirm = Modal.confirm
