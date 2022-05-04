@@ -8,8 +8,17 @@ const PageLayout = ({children}) => {
   return (
     <Layout style={{height : '100vh'}}>
       <SideNav />
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
+      <Layout className="site-layout" style={{overflow: 'auto'}}>
+        <Header 
+          className="site-layout-background" 
+          style={{ 
+            padding: 0,
+             position : 'fixed',
+             width : '100%',
+             height : '2em',
+             lineHeight : '2em'
+             }}
+        > 
         </Header>
         <Content
           className="site-layout-background"
