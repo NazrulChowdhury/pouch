@@ -7,7 +7,6 @@ import PageLayout from "./component/Layout/PageLayout"
 import { useGlobalContext } from "./context/globalContext"
 import { getSession } from "./functions/api.js"
 import { message } from 'antd'
-import '../node_modules/highlight.js/styles/gruvbox-dark.css'
 
 function App() {
   const {setUser} = useGlobalContext()

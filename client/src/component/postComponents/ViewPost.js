@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react'
-import Highlight from 'react-highlight'
+import React, {useEffect, useState} from 'react'
+import Prism from 'prismjs'
+import "prismjs/themes/prism-dark.css"
 import { useQuery } from 'react-query'
 import { getPostById } from '../../functions/api'
 import {useParams } from 'react-router-dom'
@@ -18,18 +19,22 @@ const ViewPost = () => {
     })
 
     useEffect(() => refetch(),[])
+    useEffect(() => Prism.highlightAll(),[])
 
   return (
     <>
         {postData && !edit ? (
             <div>
                 <p style={{fontSize : '2rem'}}>{postData.postTitle}</p> <br />
-                <div style={{whiteSpace: 'pre-wrap'}}>
-                    <Highlight >
-                        {postData.postDescription}
-                    </Highlight>
+                <div 
+                //   dangerouslySetInnerHTML={{__html: postData.postDescription}}
+                   style={{whiteSpace: 'pre-wrap'}}
+                >
+                    <pre className='language-'>
+                    {postData.postDescription}
+                    </pre>
                 </div>
-            </div> 
+             </div> 
         ) : null }
    </>
   )
