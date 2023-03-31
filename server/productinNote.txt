@@ -1,0 +1,2 @@
+#tsconfig.json include and exclude need to be explored.
+# logging mechanism instead of just console.log()

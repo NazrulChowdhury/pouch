@@ -8,7 +8,7 @@ const RedisStore = connectRedis(session)
 //Configure redis client
 const redisClient = redis.createClient({
     host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT  
+    port: parseInt(process.env.REDIS_PORT!)  
 })
 redisClient.on('error', function (err) {
     console.log('Could not establish a connection with redis. ' + err)
@@ -18,7 +18,7 @@ redisClient.on('connect', function (err) {
 })
 export default session({
     store: new RedisStore({ client: redisClient }),
-    secret : process.env.REDIS_SESSION_SECRET,
+    secret : process.env.REDIS_SESSION_SECRET!,
     resave: false,
     saveUninitialized : true,
     cookie :{
