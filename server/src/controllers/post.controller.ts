@@ -1,15 +1,16 @@
-import { ApiError } from "../Error/ApiError.js"
+//import { ApiError } from "../Error/ApiError.js"
 import { Request, Response, NextFunction } from "express"
-import { PostInput } from "../types/index.js"
-import { createPost } from "@services/post.service"
+import { PostInput } from "@types"
+import { createNewPost, getPostById } from "@services/post.service"
+import { ObjectId } from "mongoose"
 
-export const createNewPost = async(
+export const createNewPostHandler = async(
     req:Request<{},{},PostInput>, 
     res:Response, 
     next:NextFunction
     ) => { 
     try{
-        const result = await createPost(req.body, req.user!) 
+        const result = await createNewPost(req.body, req.user!) 
         res.send('success!')
     } catch (error){
         next(error)
@@ -26,15 +27,15 @@ export const createNewPost = async(
 //     }  
 // }
 
-// export const getPost = async(req:Request, res:Response, next:NextFunction) => {
-//     const {postId} = req.params
-//     try{
-//         const response = await getPostById(postId)
-//         res.send(response)
-//     }catch(error){
-//         next(error)
-//     }
-// }
+export const getPost = async(req:Request, res:Response, next:NextFunction) => {
+    const {postId} = req.params
+    try{
+        const response = await getPostById(postId as unknown as ObjectId)
+        res.send(response)
+    }catch(error){
+        next(error)
+    }
+}
 
 // export const updatePost = async(req:Request, res:Response, next:NextFunction) => {
 //     const {title, description, tags, postId } = req.body.data

@@ -11,9 +11,13 @@
     "baseUrl": "src",
     "paths": {
       "@app" : ["app.ts"],
+      "@types" : ["types"],
       "@services/*" : ["services/*.ts"],
       "@util/*" : ["util/*.ts"],
-      "@models/*" : ["models/*.ts"]
+      "@models/*" : ["models/*.ts"],
+      "@fixtures" : ["fixtures"],
+      "@routes" : ["routes"],
+      "@controllers/*" : ["controllers/*.ts"]
     }
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
@@ -113,6 +117,6 @@
   },
   "include": [
     "src/**/*.ts", "src/auth/passport.config.ts", "src/*.ts"
-  ]
-  // "exclude": ["node_modules", "__tests__"]
+  ],
+  "exclude": ["node_modules", "__tests__", "fixtures"]
 }

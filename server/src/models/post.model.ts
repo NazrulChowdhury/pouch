@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose"
-import { PostInput } from "../types"
+import { Post } from "../types"
  
 const postSchema = new Schema(
 {  
@@ -22,5 +22,5 @@ const postSchema = new Schema(
 }
 )
 
-const Post = mongoose.model<PostInput>('Post', postSchema)
+const Post = mongoose.model<Post>('Post', postSchema)
 export default Post

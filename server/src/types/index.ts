@@ -1,4 +1,4 @@
-import mongoose, {Document} from 'mongoose'
+import mongoose, {Document, ObjectId} from 'mongoose'
 export type GitHubProfile = {
     id : string
     name : string
@@ -19,4 +19,8 @@ export interface PostInput {
     description : string,
     tags : string[]
 }
-export interface PostDocument extends PostInput, Document{}
+export interface Post extends PostInput {
+    userId : string
+}
+export interface PostDocument extends Post, Document{
+}
