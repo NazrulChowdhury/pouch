@@ -1,21 +1,21 @@
 import express from "express"
 //import navController from "../../controller/nav.controller.js"
 import { 
-    createNewPostHandler, 
+    createNewPostHandler, getPostByIdHandler, 
     // deletePost, 
     // getAllPostsByTag, 
     // getPost, 
     // updatePost 
 } from "../../controllers/post.controller"
 import { postSchema } from "../../schema/post.schema"
-//import validateResource from "../../middlewares/validateResource"
+import validateResource from "@middlewares/validateResource"
 
 const postRouter = express.Router()
 
 //postRouter.get('/getNavs', navController)
- postRouter.post('/',createNewPostHandler ) //validateResource(postSchema)
+ postRouter.post('/', validateResource(postSchema), createNewPostHandler) 
+ postRouter.get('/:postId', getPostByIdHandler)
 // postRouter.get('/tag/:tagName', getAllPostsByTag)
-// postRouter.get('/getPost/:postId', getPost)
 // postRouter.post('/updatePost', updatePost)
 // postRouter.get('/deletePost/:postId', deletePost)
 

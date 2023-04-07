@@ -31,7 +31,7 @@ export const getPostByIdHandler = async(req:Request, res:Response, next:NextFunc
     const {postId} = req.params
     try{
         const response = await getPostById(postId)
-        !response && next(ApiError.badRequest('post does not found'))
+        !response && next(ApiError.badRequest('post is not found'))
         res.send(response)
     }catch(error){
         next(error)

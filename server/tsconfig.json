@@ -17,7 +17,8 @@
       "@models/*" : ["models/*.ts"],
       "@fixtures" : ["fixtures"],
       "@routes" : ["routes"],
-      "@controllers/*" : ["controllers/*.ts"]
+      "@controllers/*" : ["controllers/*.ts"],
+      "@middlewares/*" : ["middlewares/*.ts"]
     }
     /* Visit https://aka.ms/tsconfig to read more about this file */
 

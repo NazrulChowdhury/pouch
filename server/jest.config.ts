@@ -19,5 +19,6 @@ export default {
         "@util/(.*)" : '<rootDir>/src/util/$1',
         "@models/(.*)" : '<rootDir>/src/models/$1', 
         "@controllers/(.*)" : '<rootDir>/src/controllers/$1',
+        "@middlewares/(.*)" : '<rootDir>/src/middlewares/$1',
     }
 }
