@@ -1,7 +1,5 @@
 import Post from "@models/post.model"
 import { PostInput, Post as PostType } from "@types"
-import mongoose, { Document, ObjectId } from "mongoose"
-
 
 export const createNewPost = async(post: PostInput, user:Express.User) => { 
     const newPost:PostType = { 
@@ -29,24 +27,25 @@ export const getAllPostsByTagName = async (user:Express.User,tagName:string) => 
     )
 }
 
-export const getPostById = async(postId : ObjectId) => {
+export const getPostById = async(postId:string) => {
     return await Post.findById({
         "_id" : postId
     })
 }
 
-// export const updatePostById = async(data, postId) => {
-//     return await Post.findByIdAndUpdate({
-//         "_id" : postId
-//     }, 
-//     data,
-//     {new : true}
-//     )
-// }
+export const updatePostById = async(data:PostType, postId:string) => {
+    return await Post.findByIdAndUpdate({
+        "_id" : postId
+    }, 
+    data,
+    {new : true}
+    )
+}
 
-// export const deletePostById = async(postId)=>{
-//     return await Post.deleteOne({
-//         "_id" : postId
-//     })
-// }
+export const deletePostById = async(postId:string, userId : string)=>{
+    return await Post.deleteOne({
+        "_id" : postId,
+        userId
+    })
+}
 

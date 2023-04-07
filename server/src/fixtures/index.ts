@@ -2,7 +2,7 @@ import { PostDocument, PostInput, Post } from "@types";
 import mongoose from "mongoose";
 
 export const singlePostInput:PostInput = {
-    title:'some title text',
+    title:'first post tile',
     description : 'some description',
     tags : ['tag1']
 }
@@ -14,19 +14,20 @@ export const singlePost:Post = {
     tags : ['tag1']
 }
 export const singlePostDocument = {  
-    _id : new mongoose.Types.ObjectId(),//.toString(),
+    _id : new mongoose.Types.ObjectId().toString(), 
     userId : 'user1',
     title:'first post tile',
     description : 'some description',
     tags : ['tag1']
 } as PostDocument
+
 export const manyPosts:Post[] = [
     {  
         userId : 'user1',
         title:'first post tile',
         description : 'some description',
         tags : ['tag1']
-     }, {
+    }, {
         userId : 'user2',
         title:'second post title ',
         description : 'some description',
@@ -41,5 +42,21 @@ export const manyPosts:Post[] = [
         title:'fourth post title',
         description : 'some description',
         tags : ['tag4']
-     }
+    }, {  
+        userId : 'user1',
+        title:'fifth post title',
+        description : 'some description',
+        tags : ['javascript']
+    },
+    {  
+        userId : 'user1',
+        title:'fifth post title',
+        description : 'some description',
+        tags : ['javascript']
+    },{  
+        userId : 'user2',
+        title:'sixth post title',
+        description : 'some description',
+        tags : ['javascript']
+    }
 ]

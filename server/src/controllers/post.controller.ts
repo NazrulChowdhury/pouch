@@ -1,8 +1,8 @@
-//import { ApiError } from "../Error/ApiError.js"
+import { ApiError } from "../Error/ApiError"
 import { Request, Response, NextFunction } from "express"
-import { PostInput } from "@types"
-import { createNewPost, getPostById } from "@services/post.service"
-import { ObjectId } from "mongoose"
+import { Post, PostInput } from "@types"
+import { createNewPost, deletePostById, getAllPostsByTagName, getPostById, updatePostById } from "@services/post.service"
+
 
 export const createNewPostHandler = async(
     req:Request<{},{},PostInput>, 
@@ -17,55 +17,60 @@ export const createNewPostHandler = async(
     }
 }
 
-// export const getAllPostsByTag = async(req:Request, res:Response, next:NextFunction) => {
-//     const {tagName} = req.params
-//     try{
-//         const response = await getAllPostsByTagName(req.user, tagName)
-//         res.send(response)
-//     }catch(error){
-//         next(error)
-//     }  
-// }
+export const getPostsByTagHandler = async(req:Request, res:Response, next:NextFunction) => {
+    const {tagName} = req.params
+    try{
+        const response = await getAllPostsByTagName(req.user!, tagName)
+        res.send(response)
+    }catch(error){
+        next(error)
+    }  
+}
 
-export const getPost = async(req:Request, res:Response, next:NextFunction) => {
+export const getPostByIdHandler = async(req:Request, res:Response, next:NextFunction) => {
     const {postId} = req.params
     try{
-        const response = await getPostById(postId as unknown as ObjectId)
+        const response = await getPostById(postId)
+        !response && next(ApiError.badRequest('post does not found'))
         res.send(response)
     }catch(error){
         next(error)
     }
 }
 
-// export const updatePost = async(req:Request, res:Response, next:NextFunction) => {
-//     const {title, description, tags, postId } = req.body.data
-//     const postData = {
-//         userId : req.user,
-//         postTitle : title,
-//         postDescription : description,
-//         tags 
-//     }
-//     try{
-//         const result = await updatePostById(postData, postId)
-//         if(result && '_id' in result) { 
-//             res.send(result)
-//         } else{
-//             next(ApiError.badRequest('update failed!'))
-//         }
-//     }catch(error){
-//         next(error)
-//     }
-// }
+export const updatePostHandler = async(
+    req:Request<{},{},Post&{postId : string}>, 
+    res:Response, 
+    next:NextFunction
+    ) => {
+    const {title, description, tags, postId } = req.body
+    const postData :Post = {
+        userId : req.user as string,
+        title : title,
+        description : description,
+        tags 
+    }
+    try{
+        const result = await updatePostById(postData, postId)
+        result && '_id' in result ?
+        res.send(result)
+        :
+        next(ApiError.badRequest('update failed!'))
+        
+    }catch(error){
+        next(error)
+    }
+}
 
-// export const deletePost = async(req:Request, res:Response, next:NextFunction) => {
-//     try{
-//         const response = await deletePostById(req.params.postId)
-//         if(response.deletedCount > 0){
-//             res.send('post deleted!')
-//         } else{
-//             next(ApiError.badRequest('request failed!'))
-//         }
-//     }catch(error){
-//         next(error)
-//     }
-// }
+export const deletePost = async(req:Request, res:Response, next:NextFunction) => {
+    try{
+        const response = await deletePostById(req.params.postId, req.user as string)
+        if(response.deletedCount > 0){
+            res.send('post deleted!')
+        } else{
+            next(ApiError.badRequest('request failed!'))
+        }
+    }catch(error){
+        next(error)
+    }
+}
