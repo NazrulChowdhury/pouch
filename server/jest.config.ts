@@ -20,5 +20,6 @@ export default {
         "@models/(.*)" : '<rootDir>/src/models/$1', 
         "@controllers/(.*)" : '<rootDir>/src/controllers/$1',
         "@middlewares/(.*)" : '<rootDir>/src/middlewares/$1',
+        "@error/(.*)" : '<rootDir>/src/Error/$1',
     }
 }

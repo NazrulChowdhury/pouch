@@ -18,7 +18,8 @@
       "@fixtures" : ["fixtures"],
       "@routes" : ["routes"],
       "@controllers/*" : ["controllers/*.ts"],
-      "@middlewares/*" : ["middlewares/*.ts"]
+      "@middlewares/*" : ["middlewares/*.ts"],
+      "@error/*" : ["Error/*.ts"]
     }
     /* Visit https://aka.ms/tsconfig to read more about this file */
 

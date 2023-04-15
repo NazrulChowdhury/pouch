@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction } from "express";
+import { ApiError } from "@error/ApiError"
+import { Request, Response, NextFunction } from "express"
 import { AnyZodObject } from "zod";
 
 const validateResource =
@@ -11,8 +12,8 @@ const validateResource =
         params: req.params,
       });
       next();
-    } catch (e: any) {
-      return res.status(400).send(e.errors);
+    } catch (e:any) {
+      return next(ApiError.badRequest(e.message))
     }
   };
 

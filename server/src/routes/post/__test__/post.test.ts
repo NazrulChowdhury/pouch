@@ -2,8 +2,7 @@ import supertest from "supertest";
 import app from "@app";
 import { singlePostInput, singlePostDocument } from "@fixtures";
 import * as postService from '@services/post.service'
-import mongoose from "mongoose";
-import { ApiError } from "../../../Error/ApiError";
+import { ApiError } from "@error/ApiError"
 
 describe('Post route Test Suite', () => { 
 
@@ -31,10 +30,9 @@ describe('Post route Test Suite', () => {
             const {title, ...inCompletePostInput} = singlePostInput
             const createPostServiceMock = jest
                 .spyOn(postService, 'createNewPost')
-            const { statusCode } = await supertest(app)
+            const { statusCode, error, text, body } = await supertest(app)
                 .post('/api/post')
                 .send(inCompletePostInput)
-            
             expect(statusCode)
                 .toBe(400)
             expect(createPostServiceMock)
@@ -69,6 +67,41 @@ describe('Post route Test Suite', () => {
                 .get('/api/post/somePostId')
             expect(statusCode)
                 .toBe(400)
+        })
+    })
+
+    describe('/api/post/tag/:tagName tests', () => {
+
+        test('Given a valid tag is provided, should return 200', async() => {
+
+            const mockGetAllPostsByTagName = jest
+                .spyOn(postService, 'getAllPostsByTagName')
+                //@ts-ignore
+                .mockResolvedValue(['post'])           
+            const {statusCode} = await supertest(app)
+                .get('/api/post/tag/someTagName')
+            
+            expect(statusCode)
+                .toBe(200)
+            expect(mockGetAllPostsByTagName)
+                .toHaveBeenCalledTimes(1)
+
+        })
+
+        test('Given an invalid random tag is provided, should return 401', async() => {
+
+            const mockGetAllPostsByTagName = jest
+                .spyOn(postService, 'getAllPostsByTagName')
+                //@ts-ignore
+                .mockResolvedValue([])           
+            const {statusCode} = await supertest(app)
+                .get('/api/post/tag/someTagName')
+            
+            expect(statusCode)
+                .toBe(400)
+            expect(mockGetAllPostsByTagName)
+                .toHaveBeenCalledTimes(1)
+                
         })
     })
 })

@@ -64,7 +64,8 @@ describe('Post.controller test suit', () => {
 
             const mockGetAllPostsByTagNameService = jest
                 .spyOn(PostService,'getAllPostsByTagName')
-                .mockResolvedValue([])
+                //@ts-ignore
+                .mockResolvedValue([singlePostDocument])
             // @ts-ignore
             await getPostsByTagHandler(req, res, next)
 
@@ -76,7 +77,7 @@ describe('Post.controller test suit', () => {
                 .toBe('someTag')
             expect(res.send)
                 .toHaveBeenCalledTimes(1)
-                .toHaveBeenCalledWith([])
+                .toHaveBeenCalledWith([singlePostDocument])
             
         }) 
 

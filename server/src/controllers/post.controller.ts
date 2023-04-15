@@ -21,6 +21,9 @@ export const getPostsByTagHandler = async(req:Request, res:Response, next:NextFu
     const {tagName} = req.params
     try{
         const response = await getAllPostsByTagName(req.user!, tagName)
+        !response.length ?
+        next(ApiError.badRequest('no post found!'))
+        :
         res.send(response)
     }catch(error){
         next(error)
@@ -31,8 +34,8 @@ export const getPostByIdHandler = async(req:Request, res:Response, next:NextFunc
     const {postId} = req.params
     try{
         const response = await getPostById(postId)
-        !response && next(ApiError.badRequest('post is not found'))
-        res.send(response)
+        !response ? next(ApiError.badRequest('post is not found'))
+        : res.send(response)
     }catch(error){
         next(error)
     }

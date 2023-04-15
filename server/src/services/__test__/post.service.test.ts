@@ -165,13 +165,13 @@ describe('Test Suite', () => {
 
     })
 
-    describe.only('deletePostById', () => {
+    describe('deletePostById', () => {
         
         afterAll(async() => {
             await clearPosts()
         })
 
-        it.skip('Given a valid post Id and userId provided, it deletes the post', async() => {
+        it('Given a valid post Id and userId provided, it deletes the post', async() => {
 
             const newPost = await new Post(singlePost).save()
             await deletePostById(newPost._id.toString(), newPost.userId)
