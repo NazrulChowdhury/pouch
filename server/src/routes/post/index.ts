@@ -1,14 +1,11 @@
 import express from "express"
 //import navController from "../../controller/nav.controller.js"
 import { 
-    createNewPostHandler, getPostByIdHandler, getPostsByTagHandler, 
-    // deletePost, 
-    // getAllPostsByTag, 
-    // getPost, 
-    // updatePost 
+    createNewPostHandler, getPostByIdHandler, getPostsByTagHandler, updatePostHandler
 } from "../../controllers/post.controller"
-import { postSchema } from "../../schema/post.schema"
+import { postSchema } from "@schema/post.schema"
 import validateResource from "@middlewares/validateResource"
+import { postWithIdSchema } from "@schema/postUpdate.schema"
 
 const postRouter = express.Router()
 
@@ -16,7 +13,7 @@ const postRouter = express.Router()
  postRouter.post('/', validateResource(postSchema), createNewPostHandler) 
  postRouter.get('/:postId', getPostByIdHandler)
  postRouter.get('/tag/:tagName', getPostsByTagHandler)
-// postRouter.post('/updatePost', updatePost)
-// postRouter.get('/deletePost/:postId', deletePost)
+ postRouter.put('/updatePost', validateResource(postWithIdSchema), updatePostHandler)
+// postRouter.delete('/deletePost/:postId', deletePost)
 
 export default postRouter

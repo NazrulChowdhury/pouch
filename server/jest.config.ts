@@ -21,5 +21,6 @@ export default {
         "@controllers/(.*)" : '<rootDir>/src/controllers/$1',
         "@middlewares/(.*)" : '<rootDir>/src/middlewares/$1',
         "@error/(.*)" : '<rootDir>/src/Error/$1',
+        "@schema/(.*)" : '<rootDir>/src/schema/$1',
     }
 }

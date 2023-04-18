@@ -19,7 +19,8 @@
       "@routes" : ["routes"],
       "@controllers/*" : ["controllers/*.ts"],
       "@middlewares/*" : ["middlewares/*.ts"],
-      "@error/*" : ["Error/*.ts"]
+      "@error/*" : ["Error/*.ts"],
+      "@schema/*" : ["schema/*.ts"]
     }
     /* Visit https://aka.ms/tsconfig to read more about this file */
 

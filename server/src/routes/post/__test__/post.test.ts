@@ -3,6 +3,7 @@ import app from "@app";
 import { singlePostInput, singlePostDocument } from "@fixtures";
 import * as postService from '@services/post.service'
 import { ApiError } from "@error/ApiError"
+import { text } from "express";
 
 describe('Post route Test Suite', () => { 
 
@@ -41,7 +42,7 @@ describe('Post route Test Suite', () => {
         })
     })
 
-    describe('getPostById tests', () => {
+    describe('api/post/:postId getPostById tests', () => {
 
         test('Given a valid postId is provided, should return a post', async() => {
 
@@ -103,5 +104,74 @@ describe('Post route Test Suite', () => {
                 .toHaveBeenCalledTimes(1)
                 
         })
+    })
+
+    describe('/api/post/updatePost tests', () => {
+
+        it('Given valid input data  provided, should return updated document', async() => {
+            const mockUpdatePostById = jest
+                .spyOn(postService, 'updatePostById')
+                //@ts-ignore
+                .mockResolvedValueOnce(singlePostDocument)
+
+            const { statusCode, body} = await supertest(app)
+                .put('/api/post/updatePost')
+                .send({...singlePostDocument, ['postId'] : singlePostDocument['_id']})
+
+            expect(mockUpdatePostById)
+                .toHaveBeenCalledTimes(1)
+            expect(mockUpdatePostById.mock.calls[0][1])
+                .toBe(singlePostDocument._id)
+            expect(body).toEqual(singlePostDocument)
+                expect(statusCode).toBe(200)
+
+        })
+
+        it('Given invalid input is provided, should failed at validation and return 400',async () => {
+            
+            const mockUpdatePostById = jest
+                .spyOn(postService, 'updatePostById')
+
+            const { statusCode} = await supertest(app)
+                .put('/api/post/updatePost')
+                .send(singlePostInput)
+
+            expect(mockUpdatePostById)
+                .not.toHaveBeenCalled()
+            expect(statusCode)
+                .toBe(400)
+        })
+
+        it('Given updatePostById service throws, should return 500',async () => {
+            
+            const mockUpdatePostById = jest
+                .spyOn(postService, 'updatePostById')
+                .mockRejectedValue('error')
+
+            const { statusCode, text, body} = await supertest(app)
+                .put('/api/post/updatePost')
+                .send({...singlePostDocument, ['postId'] : singlePostDocument['_id']})
+
+            expect(statusCode)
+                .toBe(500)
+            expect(text)
+                .toBe('opps! something went wrong')
+        })   
+        
+        it('Given updatePostById service fails to update, should return 400',async () => {
+            
+            const mockUpdatePostById = jest
+                .spyOn(postService, 'updatePostById')
+                .mockResolvedValue(null)
+
+            const { statusCode, text} = await supertest(app)
+                .put('/api/post/updatePost')
+                .send({...singlePostDocument, ['postId'] : singlePostDocument['_id']})
+
+            expect(statusCode)
+                .toBe(400)
+            expect(text)
+                .toBe('update failed!')
+        }) 
     })
 })
