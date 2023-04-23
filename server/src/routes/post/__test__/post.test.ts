@@ -108,6 +108,7 @@ describe('Post route Test Suite', () => {
     describe('/api/post/updatePost tests', () => {
 
         it('Given valid input data  provided, should return updated document', async() => {
+
             const mockUpdatePostById = jest
                 .spyOn(postService, 'updatePostById')
                 //@ts-ignore
@@ -139,6 +140,7 @@ describe('Post route Test Suite', () => {
                 .not.toHaveBeenCalled()
             expect(statusCode)
                 .toBe(400)
+
         })
 
         it('Given updatePostById service throws, should return 500',async () => {
@@ -155,6 +157,7 @@ describe('Post route Test Suite', () => {
                 .toBe(500)
             expect(text)
                 .toBe('opps! something went wrong')
+
         })   
         
         it('Given updatePostById service fails to update, should return 400',async () => {
@@ -171,6 +174,7 @@ describe('Post route Test Suite', () => {
                 .toBe(400)
             expect(text)
                 .toBe('update failed!')
+
         }) 
     })
 
@@ -190,6 +194,7 @@ describe('Post route Test Suite', () => {
 
             expect(statusCode)
                 .toBe(200)
+
         })
 
         it('Given delete was unsuccessful, should return 400', async () => {
@@ -206,6 +211,7 @@ describe('Post route Test Suite', () => {
                 .toBe(400)
             expect(text)
                 .toBe('request failed!')
+
         })   
         
         it('Given deletePostById service throws, was unsuccessful, returns 400', async () => {
@@ -221,5 +227,36 @@ describe('Post route Test Suite', () => {
             expect(statusCode)
                 .toBe(500)
         })         
+    })
+
+    describe.only('/api/post/getNavs route tests', () => {
+
+        it('Given request was successful, should return statusCode of 200 and an array as response', async() => {
+
+            const mockGetAllPosts = jest
+                .spyOn(postService, 'getAllPosts')
+                .mockResolvedValue([])
+
+            const {statusCode, body} = await supertest(app)
+                .get('/api/post/getNavs')
+            
+            expect(statusCode)
+                .toBe(200)
+            expect(body)
+                .toEqual([])
+        })
+
+        it('Given getAllPosts service throws, should return statusCode of 500', async() => {
+            const mockGetAllPosts = jest
+                .spyOn(postService, 'getAllPosts')
+                .mockRejectedValue('error')
+
+            const {statusCode} = await supertest(app)
+                .get('/api/post/getNavs')
+
+            expect(statusCode)
+                .toBe(500)
+                
+        })
     })
 })
