@@ -17,7 +17,11 @@ export const createNewPostHandler = async(
     }
 }
 
-export const getPostsByTagHandler = async(req:Request, res:Response, next:NextFunction) => {
+export const getPostsByTagHandler = async(
+    req:Request<{tagName : string}>, 
+    res:Response, 
+    next:NextFunction
+    ) => {
     const {tagName} = req.params
     try{
         const response = await getAllPostsByTagName(req.user!, tagName)
@@ -30,7 +34,11 @@ export const getPostsByTagHandler = async(req:Request, res:Response, next:NextFu
     }  
 }
 
-export const getPostByIdHandler = async(req:Request, res:Response, next:NextFunction) => {
+export const getPostByIdHandler = async(
+    req:Request<{postId : string}>, 
+    res:Response, 
+    next:NextFunction
+    ) => {
     const {postId} = req.params
     try{
         const response = await getPostById(postId)
@@ -65,7 +73,11 @@ export const updatePostHandler = async(
     }
 }
 
-export const deletePostHandler = async(req:Request, res:Response, next:NextFunction) => {
+export const deletePostHandler = async(
+    req:Request<{postId : string}>, 
+    res:Response, 
+    next:NextFunction
+    ) => {
     try{
         const response = await deletePostById(req.params.postId, req.user as string)
         if(response?.deletedCount > 0){

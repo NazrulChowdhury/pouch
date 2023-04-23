@@ -213,7 +213,7 @@ describe('Post route Test Suite', () => {
             const mockDeletePostById = jest
             .spyOn(postService, 'deletePostById')
             //@ts-ignore
-            .mockRejectedValue(new Error())
+            .mockRejectedValue('error')
 
             const {statusCode, text} = await supertest(app)
             .delete('/api/post/somePostId')
