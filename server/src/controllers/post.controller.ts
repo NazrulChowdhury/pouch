@@ -54,7 +54,7 @@ export const updatePostHandler = async(
         tags 
     }
     try{
-        const result = await updatePostById(postData, postId)
+        const result = await updatePostById(postData, postId, req.user as string)
         result && '_id' in result ?
         res.send(result)
         :
@@ -65,10 +65,10 @@ export const updatePostHandler = async(
     }
 }
 
-export const deletePost = async(req:Request, res:Response, next:NextFunction) => {
+export const deletePostHandler = async(req:Request, res:Response, next:NextFunction) => {
     try{
         const response = await deletePostById(req.params.postId, req.user as string)
-        if(response.deletedCount > 0){
+        if(response?.deletedCount > 0){
             res.send('post deleted!')
         } else{
             next(ApiError.badRequest('request failed!'))

@@ -142,7 +142,7 @@ describe('Test Suite', () => {
 
             const newPost = await createNewPost(postPayLoad, 'user1')
             newPost.description='updated description'
-            const updatedPost = await updatePostById(newPost, newPost._id.toString())
+            const updatedPost = await updatePostById(newPost, newPost._id.toString(), newPost.userId)
             expect(updatedPost)
                 .toHaveProperty("_id")
             expect(updatedPost?.userId)
@@ -156,8 +156,19 @@ describe('Test Suite', () => {
         it('Given an invalid postId is provided, it returns null', async() => {
             
             const newPost = await createNewPost(postPayLoad, 'user1')
+            newPost.description='updated description'
             const randomId = new mongoose.Types.ObjectId().toString()
-            const updatedPost = await updatePostById( newPost, randomId)
+            const updatedPost = await updatePostById( newPost, randomId, newPost.userId)
+            expect(updatedPost)
+                .toBe(null)
+
+        })
+        
+        it('Given the post is of a different user, should return null', async() => {
+            
+            const newPost = await createNewPost(postPayLoad, 'user1')
+            newPost.description='updated description'
+            const updatedPost = await updatePostById( newPost,  newPost._id.toString(), 'randomUserId')
             expect(updatedPost)
                 .toBe(null)
 
@@ -171,7 +182,7 @@ describe('Test Suite', () => {
             await clearPosts()
         })
 
-        it('Given a valid post Id and userId provided, it deletes the post', async() => {
+        it('Given a valid post Id and userId provided, should deletes the post', async() => {
 
             const newPost = await new Post(singlePost).save()
             await deletePostById(newPost._id.toString(), newPost.userId)
@@ -181,7 +192,7 @@ describe('Test Suite', () => {
 
         })
 
-        it('Given a different userId, should not delete post', async() => {
+        it('Given the post is of a different user, should not delete post', async() => {
             
             const newPost = await new Post(singlePost).save()
             const result = await deletePostById(newPost._id.toString(), 'randomUserId')

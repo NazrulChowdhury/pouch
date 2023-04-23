@@ -1,4 +1,4 @@
-import { createNewPostHandler, deletePost, getPostByIdHandler, getPostsByTagHandler, updatePostHandler } from "@controllers/post.controller"
+import { createNewPostHandler, deletePostHandler, getPostByIdHandler, getPostsByTagHandler, updatePostHandler } from "@controllers/post.controller"
 import { singlePost, singlePostDocument, singlePostInput } from "@fixtures"
 import * as PostService from '@services/post.service'
 
@@ -197,7 +197,7 @@ describe('Post.controller test suit', () => {
                 deletedCount : 1
             })
             //@ts-ignore
-            await deletePost(req, res, next)
+            await deletePostHandler(req, res, next)
             expect(mockDeletePostById)
                 .toHaveBeenCalledTimes(1)
             expect(mockDeletePostById.mock.calls[0][0])
@@ -216,7 +216,7 @@ describe('Post.controller test suit', () => {
                 .spyOn(PostService, 'deletePostById')
                 .mockRejectedValueOnce('error')
             //@ts-ignore
-            await deletePost(req, res, next)
+            await deletePostHandler(req, res, next)
             expect(next)
                 .toHaveBeenCalledTimes(1)
                 .toHaveBeenCalledWith('error')

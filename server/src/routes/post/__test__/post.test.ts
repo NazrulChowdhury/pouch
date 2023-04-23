@@ -3,7 +3,6 @@ import app from "@app";
 import { singlePostInput, singlePostDocument } from "@fixtures";
 import * as postService from '@services/post.service'
 import { ApiError } from "@error/ApiError"
-import { text } from "express";
 
 describe('Post route Test Suite', () => { 
 
@@ -173,5 +172,54 @@ describe('Post route Test Suite', () => {
             expect(text)
                 .toBe('update failed!')
         }) 
+    })
+
+    describe('/api/post/:postId, delete post route tests', () => {
+
+        it('Given a valid postId is Provided, should return 200', async () => {
+
+            const mockDeletePostById = jest
+            .spyOn(postService, 'deletePostById')
+            //@ts-ignore
+            .mockResolvedValueOnce({
+                deletedCount : 1
+            })
+
+            const {statusCode} = await supertest(app)
+            .delete('/api/post/somePostId')
+
+            expect(statusCode)
+                .toBe(200)
+        })
+
+        it('Given delete was unsuccessful, should return 400', async () => {
+
+            const mockDeletePostById = jest
+            .spyOn(postService, 'deletePostById')
+            //@ts-ignore
+            .mockResolvedValueOnce(null)
+
+            const {statusCode, text} = await supertest(app)
+            .delete('/api/post/somePostId')
+
+            expect(statusCode)
+                .toBe(400)
+            expect(text)
+                .toBe('request failed!')
+        })   
+        
+        it('Given deletePostById service throws, was unsuccessful, returns 400', async () => {
+
+            const mockDeletePostById = jest
+            .spyOn(postService, 'deletePostById')
+            //@ts-ignore
+            .mockRejectedValue(new Error())
+
+            const {statusCode, text} = await supertest(app)
+            .delete('/api/post/somePostId')
+
+            expect(statusCode)
+                .toBe(500)
+        })         
     })
 })

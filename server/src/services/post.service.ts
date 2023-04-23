@@ -33,9 +33,10 @@ export const getPostById = async(postId:string) => {
     })
 }
 
-export const updatePostById = async(data:PostType, postId:string) => {
-    return await Post.findByIdAndUpdate({
-        "_id" : postId
+export const updatePostById = async(data:PostType, postId:string, userId : string) => {
+    return await Post.findOneAndUpdate({
+        "_id" : postId,
+        userId
     }, 
     data,
     {new : true}
