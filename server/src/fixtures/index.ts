@@ -1,4 +1,4 @@
-import { PostDocument, PostInput, Post } from "@types";
+import { PostDocument, PostInput, Post, UserDocument, UserInput } from "@types";
 import mongoose from "mongoose";
 
 export const singlePostInput:PostInput = {
@@ -60,3 +60,22 @@ export const manyPosts:Post[] = [
         tags : ['javascript']
     }
 ]
+
+export const googleUserInput =  { 
+    _json: {
+        name:'user1',
+        email:'user1@email.com',
+        picture : 'http:pictureLink',
+        sub : 'user1GoogleId'
+    }
+}
+
+export const googleUserDocument ={
+    _id : mongoose.Types.ObjectId.toString(),
+    name:'user1',
+    email:'user1@email.com',
+    picture : 'http:pictureLink',
+    platform:{
+        googleID: 'user1GoogleId',
+    }
+} as UserDocument

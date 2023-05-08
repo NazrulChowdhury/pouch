@@ -9,7 +9,7 @@ import Post from '@models/post.model'
 const postPayLoad = singlePostInput
 const postsArray = manyPosts
 
-describe('Test Suite', () => { 
+describe('Post Service Test Suite', () => { 
 
     beforeAll(async () => {
         await connectMongo(true)
@@ -19,7 +19,7 @@ describe('Test Suite', () => {
       await disconnectMongo()
     })
 
-    describe('createNewPost', () => {
+    describe('createNewPost service tests', () => {
 
         afterEach(async() => {
             await clearPosts()
@@ -40,7 +40,7 @@ describe('Test Suite', () => {
         })
     })
 
-    describe('getAllPosts', () => {
+    describe('getAllPosts service tests', () => {
 
         beforeAll(async() => {
             await createManyPosts(postsArray)
@@ -67,7 +67,7 @@ describe('Test Suite', () => {
 
     })
 
-    describe('getAllPostsByTagName', () => {
+    describe('getAllPostsByTagName service tests', () => {
 
         beforeAll(async() => {
             await createManyPosts(postsArray)
@@ -104,7 +104,7 @@ describe('Test Suite', () => {
 
     })
 
-    describe('getPostById', () => {
+    describe('getPostById service tests', () => {
 
         afterAll(async () => {
             await clearPosts()
@@ -132,7 +132,7 @@ describe('Test Suite', () => {
 
     }) 
 
-    describe('updatePostById', () => {
+    describe('updatePostById service tests', () => {
         
         afterEach(async() => {
             await clearPosts()
@@ -176,7 +176,7 @@ describe('Test Suite', () => {
 
     })
 
-    describe('deletePostById', () => {
+    describe('deletePostById service tests', () => {
         
         afterAll(async() => {
             await clearPosts()

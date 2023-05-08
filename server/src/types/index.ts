@@ -4,16 +4,22 @@ export type GitHubProfile = {
     name : string
     avatar_url : string
 }
-export interface User {
+export interface UserInput {
+    name : string 
+    email : string
+    picture : string
+    sub ?: string // present in google strategy 
+    id ?: string // present in github strategy
+}
+export interface UserDocument extends Document{
     name : string 
     email : string
     picture : string
     platform: {
-        googleID: string,
-        githubID : string
+        googleID?: string,
+        githubID ?: string
     }
-}
-export interface UserDocument extends User, Document{} 
+} 
 export interface PostInput {
     title : string,
     description : string,
@@ -24,3 +30,4 @@ export interface Post extends PostInput {
 }
 export interface PostDocument extends Post, Document{
 }
+export type ProviderType  = 'google' | 'github'
