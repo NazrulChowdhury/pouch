@@ -1,16 +1,6 @@
+import { Platform, UserDocument } from "@types";
 import mongoose, {Schema} from "mongoose"
 
-interface IPlatform {
-    googleID?: string;
-    githubID?: string;
-}
-  
-interface IUser extends Document {
-    name: string;
-    email: string;
-    picture?: string;
-    platform: IPlatform;
-}
 
 const platformSchema = new Schema({
     googleID: String,
@@ -24,7 +14,6 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        required: true
     },
     picture: {
         type: String
@@ -32,7 +21,7 @@ const userSchema = new Schema({
     platform: {
         type: platformSchema,
         validate: {
-            validator: function (value: IPlatform) {
+            validator: function (value: Platform) {
                 return !!value.googleID || !!value.githubID;
             },
             message: 'At least one platform ID is required'
@@ -40,6 +29,6 @@ const userSchema = new Schema({
     }
 })
 
-const User = mongoose.model<IUser>('User', userSchema)
+const User = mongoose.model<UserDocument>('User', userSchema)
 
 export default User

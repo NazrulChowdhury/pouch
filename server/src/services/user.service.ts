@@ -28,6 +28,7 @@ export const createGithubUser = async(profile:GitHubProfile) =>{
 }
 
 export const updateUserPicture = async(id:string, imageUrl:string) => {
+    if(!id || !imageUrl) throw new Error('invalid input')
     return await User.updateOne({_id : id}, {picture: imageUrl})
 }
 

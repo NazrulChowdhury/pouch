@@ -70,6 +70,12 @@ export const googleUserInput =  {
     }
 }
 
+export const gitHubUserInput =  { 
+    name:'user1',
+    avatar_url : 'http:pictureLink',
+    id : 'user1GithubId'
+}
+
 export const googleUserDocument ={
     _id : mongoose.Types.ObjectId.toString(),
     name:'user1',
