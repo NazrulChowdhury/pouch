@@ -1,6 +1,6 @@
 import { Profile } from "passport-google-oauth20"
 import User from "../models/user.model"
-import { GitHubProfile, ProviderType } from "../types"
+import { GitHubProfile, ProviderType, UserDocument } from "../types"
 
 export const createGoogleUser = async(profile:Profile) =>{
     const { sub, name, email, picture} = profile._json
@@ -38,6 +38,6 @@ export const getUser = async(provider:ProviderType, providerId:string) => {
     return await User.findOne(query).lean()
 }
 
-export const getUserById = async(id:string) =>{
-    return await User.findById(id)
+export const getUserById = async(id:string) : Promise<UserDocument | null> =>{
+    return await User.findById(id) 
 }
