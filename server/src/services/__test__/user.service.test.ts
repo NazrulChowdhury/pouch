@@ -1,6 +1,6 @@
 import { connectMongo, disconnectMongo } from '@util/mongo'
 import { clearUsers } from '@services/test.service'
-import { createGoogleUser, createGithubUser, updateUserPicture} from '@services/user.service'
+import { createGoogleUser, createGithubUser, updateUserPicture, getUser} from '@services/user.service'
 import {googleUserInput, gitHubUserInput} from "@fixtures"
 import { UserDocument } from '@types'
 import mongoose from 'mongoose'
@@ -93,5 +93,31 @@ describe('User Service Test Suite', () => {
             await expect(updateUserPicture(user._id)).rejects.toThrow()
         })
 
+    })
+
+    describe('getUser service tests', () => {
+
+        let newUser = {} as  UserDocument 
+
+        beforeAll(async() => {
+            //@ts-ignore
+            newUser = await createGoogleUser(googleUserInput)
+        })
+
+        afterAll(async() => {
+            await clearUsers()
+        })
+        
+        it('Given a valid provider and ID are provided, should return the user', async() => {
+            const user = await getUser('google', newUser.platform.googleID!)
+            expect(user?._id)
+                .toEqual(newUser._id)
+        })
+
+        it('Given an invalid ID is provided, should return null', async() => {
+            const user = await getUser('google', 'random123')
+            expect(user)
+                .toBeNull()
+        })
     })
 })

@@ -32,10 +32,10 @@ export const updateUserPicture = async(id:string, imageUrl:string) => {
     return await User.updateOne({_id : id}, {picture: imageUrl})
 }
 
-export const getUser = async(provider:ProviderType, id:string) => {
+export const getUser = async(provider:ProviderType, providerId:string) => {
     const query = {} as any
-    query[`platform.${provider}ID`] = id
-    return await User.findOne(query)
+    query[`platform.${provider}ID`] = providerId
+    return await User.findOne(query).lean()
 }
 
 export const getUserById = async(id:string) =>{
