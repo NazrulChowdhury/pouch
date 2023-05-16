@@ -1,6 +1,6 @@
 import { connectMongo, disconnectMongo } from '@util/mongo'
 import { clearUsers } from '@services/test.service'
-import { createGoogleUser, createGithubUser, updateUserPicture, getUser} from '@services/user.service'
+import { createGoogleUser, createGithubUser, updateUserPicture, getUser, getUserById} from '@services/user.service'
 import {googleUserInput, gitHubUserInput} from "@fixtures"
 import { UserDocument } from '@types'
 import mongoose from 'mongoose'
@@ -110,6 +110,8 @@ describe('User Service Test Suite', () => {
         
         it('Given a valid provider and ID are provided, should return the user', async() => {
             const user = await getUser('google', newUser.platform.googleID!)
+            expect(user)
+                .toBeDefined()
             expect(user?._id)
                 .toEqual(newUser._id)
         })
@@ -119,5 +121,37 @@ describe('User Service Test Suite', () => {
             expect(user)
                 .toBeNull()
         })
+
     })
+
+    describe('getUserById service tests', () => {
+
+        let newUser = {} as  UserDocument 
+
+        beforeAll(async () => {
+            //@ts-ignore
+            newUser = await createGoogleUser(googleUserInput)
+        })
+      
+        afterAll(async () => {
+            await clearUsers()
+        })
+      
+        it('Given a valid ID is provided, should return the user', async () => {
+          const user = await getUserById(newUser._id)         
+          expect(user)
+            .toBeDefined()
+          expect(user?.name)
+            .toBe(googleUserInput._json.name)
+        })
+      
+        it('Given an invalid ID is provided, should return null', async () => {
+            //@ts-ignore
+          const user = await getUserById(mongoose.Types.ObjectId().toString())
+          expect(user)
+            .toBeNull()
+        })
+      
+      })
+      
 })
