@@ -3,7 +3,7 @@ import { Layout} from 'antd'
 import SideNav from '../navigation/SideNav'
 import './Layout.module.css'
 
-const PageLayout = ({children}) => {
+const PageLayout = ({children}:{children:React.ReactNode}) => {
   const { Header, Content, Footer, Sider } = Layout
   return (
     <Layout style={{height : '100vh'}}>
@@ -20,16 +20,7 @@ const PageLayout = ({children}) => {
              }}
         > 
         </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-          }}
-        >
           {children}
-        </Content>
       </Layout>
     </Layout>
   )
