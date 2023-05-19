@@ -63,7 +63,7 @@ const MultiSelect = ({selectedTags,setSelectedTags, options}) => {
             Option
           }}
           onChange={handleChange}
-          allowSelectAll={true}
+         // allowSelectAll={true}
           value={optionSelected}
         />
       </span>

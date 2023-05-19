@@ -15,3 +15,18 @@ export interface UserDocument extends Document{
     picture : string
     platform: Platform;
 } 
+export interface SessionData {
+    name : string
+    picture : string, 
+    email ?: string
+}
+export interface PostInput {
+    title : string,
+    description : string,
+    tags : string[]
+}
+export interface Post extends PostInput {
+    userId : string
+}
+export interface PostDocument extends Post, Document{
+}

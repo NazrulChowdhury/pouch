@@ -3,11 +3,18 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import MultiSelect from "./MultiSelect"
-import { useGlobalContext } from "../../context/globalContext"
+import { useGlobalContext } from "@contexts/globalContext"
+import { PostInput } from "@types"
+import { UseMutateAsyncFunction } from "react-query/types/react/types"
 
-const PostForm = ({submitForm, data}) => {
+interface IPostForm {
+  submitForm : UseMutateAsyncFunction<string, any, PostInput, unknown>
+  data ?: PostInput
+}
+
+const PostForm = ({submitForm, data}:IPostForm) => {
   const {navs} = useGlobalContext()
-  const [selectedTags, setSelectedTags] = useState([])
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [tagError, setTagError] = useState('')
   
   const schema = yup.object({
@@ -20,13 +27,13 @@ const PostForm = ({submitForm, data}) => {
   })
   .required()
 
-  let defaultValues = null
+  let defaultValues = {} as PostInput
   if(data) {
     defaultValues ={
-      title : data.postTitle,
-      description : data.postDescription,
-      tags : data.tags
-    }
+      title : data.title,
+      description : data.description,
+      tags : data.tags 
+    } 
   }
   const { register, handleSubmit, formState:{ errors } } = useForm({
     resolver: yupResolver(schema), defaultValues
@@ -41,7 +48,10 @@ const PostForm = ({submitForm, data}) => {
     }
   }
 
-  useEffect(() => selectedTags.length ? setTagError('') : null,[selectedTags])
+  useEffect(() => {
+    selectedTags.length ? setTagError('') : null
+  },[selectedTags])
+  
   useEffect(() => data && setSelectedTags(data.tags),[])
  
   return (

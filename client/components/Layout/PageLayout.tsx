@@ -9,13 +9,13 @@ import FullPageSpinner from './FullPageSpinner'
 
 const PageLayout = ({children}:{children:React.ReactNode}) => {
   
-  const {setUser} = useGlobalContext()
+  const { userSession, setUserSession} = useGlobalContext()
   const [initialRender, setInitialRender] = useState(true)
   const { Header, Content, Footer, Sider } = Layout
   
-  const {isFetching , refetch: fetchSession } = useQuery(
+  const {refetch: fetchSession } = useQuery(
     'getSession', getSession,{
-      onSuccess : data => setUser(data),
+      onSuccess : data => data && setUserSession(data),
       onError : (error:any) => message.error(error.response.data), 
       enabled : false
     }
@@ -28,37 +28,37 @@ const PageLayout = ({children}:{children:React.ReactNode}) => {
   
   return (
     <>
-      { !initialRender && !isFetching ?
-      <Layout style={{height : '100vh'}}>
-        <SideNav />
-        <Layout className="site-layout" style={{overflow: 'auto'}}>
-          <Header 
-            className="site-layout-background" 
-            style={{ 
-              padding: 0,
-              position : 'fixed',
-              width : '100%',
-              height : '2em',
-              lineHeight : '2em'
+      { userSession ?
+        <Layout style={{height : '100vh'}}>
+          <SideNav />
+          <Layout className="site-layout" style={{overflow: 'auto'}}>
+            <Header 
+              className="site-layout-background" 
+              style={{ 
+                padding: 0,
+                position : 'fixed',
+                width : '100%',
+                height : '2em',
+                lineHeight : '2em'
+                }}
+            > 
+            </Header>
+            <Content
+              className="site-layout-background"
+              style={{
+                margin: '24px 16px',
+                padding: 24,
+                minHeight: 280,
               }}
-          > 
-          </Header>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-            }}
-          >
-            {children}
-          </Content>
+            >
+              {children}
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
-      :
-      <FullPageSpinner/>
-    }
-  </>
+        :
+        <FullPageSpinner/>
+      }
+    </>
   )
 }
 

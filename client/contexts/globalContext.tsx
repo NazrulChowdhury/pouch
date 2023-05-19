@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from 'react'
-import { UserDocument } from '../types';
+import { SessionData } from '../types';
 
 interface GlobalContextProps {
-    user: UserDocument | undefined
-    setUser: React.Dispatch<React.SetStateAction<UserDocument | undefined>> 
+    userSession: SessionData | undefined
+    setUserSession: React.Dispatch<React.SetStateAction<SessionData | undefined>> 
     navs: string[]
     setNavs: React.Dispatch<React.SetStateAction<string[]>>
     fetchNavItems?: () => void;
@@ -15,13 +15,13 @@ export const useGlobalContext = () => useContext(GlobalContext) as GlobalContext
 
 
 const GlobalContextProvider = ({children}:{children : React.ReactNode}) => {
-    const [user, setUser] = useState<UserDocument | undefined>(undefined)
+    const [userSession, setUserSession] = useState<SessionData | undefined>(undefined)
     const [navs, setNavs] = useState<string[]>([])
     const [fetchNavItems, setFetchNavItems] = useState<(() => void)>(() => {})
 
     const value:GlobalContextProps = {
-        user, 
-        setUser,
+        userSession, 
+        setUserSession,
         navs, 
         setNavs,
         fetchNavItems, 

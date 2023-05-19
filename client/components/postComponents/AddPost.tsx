@@ -1,10 +1,10 @@
 import React from 'react'
 import { useMutation } from "react-query"
-import { useGlobalContext } from "../../context/globalContext"
-import { submitPost } from "../../functions/api"
+import { useGlobalContext } from "@contexts/globalContext"
 import { message } from "antd"
 import PostForm from '../formComponents/PostForm'
-import { usePostContext } from '../../context/postContext'
+import { usePostContext } from '@contexts/postContext'
+import { submitPost } from '@services/index'
 
 const AddPost = () => {
 
@@ -14,16 +14,16 @@ const AddPost = () => {
     setShowNewPostForm,
     setShowNewPostButton
   } = usePostContext()
-
-  const {mutateAsync: addNewPost} = useMutation(submitPost,{ 
+  //@ts-ignore
+  const {mutateAsync: addNewPost} = useMutation( submitPost ,{ 
     enabled : false,
     onSuccess : (data) => {
       message.success(data)
-      fetchNavItems()
+      fetchNavItems?.()
       setShowNewPostForm(false)
       setShowNewPostButton(true)
     },
-    onError : (error) => message.error(error.response.data)
+    onError : (error:any) => message.error(error.response.data)
   })
 
   return (

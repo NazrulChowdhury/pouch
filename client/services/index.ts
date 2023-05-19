@@ -1,18 +1,19 @@
+import { PostInput, SessionData } from "@types"
 import axios from "axios"
 
-export const getSession = async() => {
+export const getSession = async() :  Promise<SessionData | null> => {
     const response =  await axios('/api/getSession',{withCredentials : true})
     return response.data
 }
 
-export const submitPost = async(data) => {
+export const submitPost = async(data:PostInput) => {
     const response =  await axios({
         method : 'POST',
         url : '/api/post/createPost',
         withCredentials : true,
         data : {data}
     })
-    return response.data
+    return response.data as string
 }
 
 export const getNavs = async()=>{
@@ -50,3 +51,4 @@ export const deletePostById = async(postId) => {
     const response = await axios(`/api/post/deletePost/${postId}`)
     return response.data
 }
+
