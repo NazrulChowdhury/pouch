@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import googleButton from '../public/googleButton.png'
 import githubButton from '../public/githubLogin.png'
-import { useGlobalContext } from '@contexts/globalContext.js'
+import { useGlobalContext } from '@contexts/globalContext'
 import { useRouter } from 'next/router'
+import { SERVER_HOST_URL } from 'environment'
 
 const signup = () => {
 
@@ -10,10 +11,10 @@ const signup = () => {
   const router = useRouter()
 
   const handleGoogleLogin = () => {
-    window.open(`${process.env.SERVER_HOST_URL}/auth/google`, "_self")
+    window.open(`${SERVER_HOST_URL}/auth/google`, "_self")
   }
   const handleGithubLogin = () => {
-    window.open(`${process.env.SERVER_HOST_URL}/auth/github`, "_self")
+    window.open(`${SERVER_HOST_URL}/auth/github`, "_self")
   }
   
   //useEffect(() => !userSession? router.push('/') : null,[])

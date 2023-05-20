@@ -28,7 +28,7 @@ const PageLayout = ({children}:{children:React.ReactNode}) => {
   
   return (
     <>
-      { userSession ?
+      {/* { userSession ? */}
         <Layout style={{height : '100vh'}}>
           <SideNav />
           <Layout className="site-layout" style={{overflow: 'auto'}}>
@@ -55,9 +55,9 @@ const PageLayout = ({children}:{children:React.ReactNode}) => {
             </Content>
           </Layout>
         </Layout>
-        :
+        {/* :
         <FullPageSpinner/>
-      }
+      } */}
     </>
   )
 }
