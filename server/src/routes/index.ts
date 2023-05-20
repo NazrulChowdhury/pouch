@@ -1,10 +1,10 @@
 import express from "express"
-//import { getSession } from "../controller/user.controller.js"
 import postRouter from "./post/index"
 import { errorHandler } from "@middlewares/errorHandler"
+import { getSession } from "@controllers/user.controller"
 
 const router = express.Router()
-//router.get('/getSession', getSession)
+router.get('/getSession', getSession)
 router.use('/post', postRouter)
 
 //handle errors

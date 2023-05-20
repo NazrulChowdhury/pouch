@@ -1,6 +1,6 @@
 import { ApiError } from "../Error/ApiError"
 import { Request, Response, NextFunction } from "express"
-import { Post, PostInput } from "@types"
+import { Post, PostDocument, PostInput } from "@types"
 import { createNewPost, deletePostById, getAllPostsByTagName, getPostById, updatePostById } from "@services/post.service"
 
 
@@ -50,19 +50,17 @@ export const getPostByIdHandler = async(
 }
 
 export const updatePostHandler = async(
-    req:Request<{},{},Post&{postId : string}>, 
+    req:Request<{},{},Omit<PostDocument,"userId">>, 
     res:Response, 
     next:NextFunction
     ) => {
-    const {title, description, tags, postId } = req.body
+    //const {title, description, tags, _id } = req.body
     const postData :Post = {
         userId : req.user as string,
-        title : title,
-        description : description,
-        tags 
+        ...req.body
     }
     try{
-        const result = await updatePostById(postData, postId, req.user as string)
+        const result = await updatePostById(postData, req.body._id, req.user as string)
         result && '_id' in result ?
         res.send(result)
         :

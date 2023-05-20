@@ -14,7 +14,7 @@ middleware.use(cors({
 middleware.use(express.json())
 middleware.use(morgan('common'))
 middleware.use(express.urlencoded({extended:false}))
-// middleware.use(session)
-// middleware.use(passportMiddleware)
+middleware.use(session)
+middleware.use(passportMiddleware)
 
 export default middleware

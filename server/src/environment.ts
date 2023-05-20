@@ -14,3 +14,4 @@ export const PORT = process.env.PORT
 export const POST_TITLE_MAX_LIMIT =  parseInt(process.env.POST_TITLE_MAX_LIMIT!) 
 export const POST_DESCRIPTION_MAX_LIMIT = parseInt(process.env.POST_DESCRIPTION_MAX_LIMIT!)
 export const POST_TAGS_MAX_LIMIT = parseInt(process.env.POST_TAGS_MAX_LIMIT!)
+export const REDIS_SESSION_SECRET = process.env.REDIS_SESSION_SECRET

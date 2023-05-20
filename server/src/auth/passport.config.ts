@@ -4,23 +4,24 @@ import passport from 'passport'
 import dotenv from 'dotenv'
 import { createGoogleUser, getUser, createGithubUser, updateUserPicture } from '../services/user.service'
 import { GitHubProfile } from '../types'
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, SERVER_HOST_URL } from 'environment'
 dotenv.config()
 
-passport.serializeUser((user:any, done)=> done(null, user.id ))
+passport.serializeUser((user:any, done)=> done(null, user._id ))
 passport.deserializeUser((id, done)=> done(null, id as string))
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID!,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    callbackURL: `${process.env.SERVER_HOST_URL}/auth/google/callback`
+    clientID: GOOGLE_CLIENT_ID!,
+    clientSecret: GOOGLE_CLIENT_SECRET!,
+    callbackURL: `${SERVER_HOST_URL}/auth/google/callback`
   },
   async function(accessToken, refreshToken, profile, done) {
     try{
       const existingUser = await getUser('google',profile.id)
       if(existingUser){
-        const {id, picture} = existingUser
+        const {_id, picture} = existingUser
         if(picture !== profile._json.picture)  {
-          await updateUserPicture(id, profile._json.picture!) 
+          await updateUserPicture(_id, profile._json.picture!) 
         }
         done(null, existingUser)
         return

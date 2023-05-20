@@ -2,6 +2,7 @@ import connectRedis from 'connect-redis'
 import session from 'express-session'
 import * as redis from 'redis'
 import dotenv from 'dotenv'
+import { REDIS_SESSION_SECRET } from 'environment'
 dotenv.config()
 
 const RedisStore = connectRedis(session)
@@ -18,7 +19,7 @@ redisClient.on('connect', function (err) {
 })
 export default session({
     store: new RedisStore({ client: redisClient }),
-    secret : process.env.REDIS_SESSION_SECRET!,
+    secret : REDIS_SESSION_SECRET!,
     resave: false,
     saveUninitialized : true,
     cookie :{
