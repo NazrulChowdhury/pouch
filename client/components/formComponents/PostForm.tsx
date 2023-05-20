@@ -4,11 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import MultiSelect from "./MultiSelect"
 import { useGlobalContext } from "@contexts/globalContext"
-import { PostInput } from "@types"
+import { PostDocument, PostInput } from "@types"
 import { UseMutateAsyncFunction } from "react-query/types/react/types"
 
 interface IPostForm {
-  submitForm : UseMutateAsyncFunction<string, any, PostInput, unknown>
+  submitForm : (data: PostDocument) => void
   data ?: PostInput
 }
 

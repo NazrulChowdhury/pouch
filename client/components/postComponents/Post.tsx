@@ -1,5 +1,5 @@
 import React from 'react'
-import { PostContextProvider } from '../../context/postContext'
+import { PostContextProvider } from '@contexts/postContext'
 
 const Post = ({children}) => {
   return (

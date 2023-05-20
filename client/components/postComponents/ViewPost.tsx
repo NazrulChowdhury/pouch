@@ -2,36 +2,40 @@ import React, {useEffect, useState} from 'react'
 import Prism from 'prismjs'
 import "prismjs/themes/prism-dark.css"
 import { useQuery } from 'react-query'
-import { getPostById } from '../../functions/api'
-import {useParams } from 'react-router-dom'
 import { message } from 'antd'
-import { usePostContext } from '../../context/postContext'
+import { usePostContext } from '@contexts/postContext'
+import { useRouter } from 'next/router'
+import { getPostById } from '@services/index'
 
 const ViewPost = () => {
 
     const {edit, postData, setPostData} = usePostContext()
-    const {postId} = useParams()
+    const router = useRouter();
+    const {postId} = router.query 
 
-    const {refetch} = useQuery('getPostById',() => getPostById(postId),{
+    const {refetch} = useQuery('getPostById',() => getPostById(postId as string),{
         enabled : false,
         onSuccess : (data) => setPostData(data),
-        onError : (error) => message.error(error.response.data)
+        onError : (error:any) => message.error(error.response.data)
     })
 
-    useEffect(() => refetch(),[])
+    useEffect(() => {
+        router.isReady && refetch()
+    },[router.isReady])
+
     useEffect(() => Prism.highlightAll(),[])
 
   return (
     <>
         {postData && !edit ? (
             <div>
-                <p style={{fontSize : '2rem'}}>{postData.postTitle}</p> <br />
+                <p style={{fontSize : '2rem'}}>{postData.title}</p> <br />
                 <div 
                 //   dangerouslySetInnerHTML={{__html: postData.postDescription}}
                    style={{whiteSpace: 'pre-wrap'}}
                 >
                     <pre className='language-'>
-                    {postData.postDescription}
+                    {postData.description}
                     </pre>
                 </div>
              </div> 

@@ -1,13 +1,15 @@
+import { AddNewPostButton, Post } from '@components/postComponents'
+import AddPost from '@components/postComponents/AddPost'
 import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
   return (
     <> 
       <Post>
-        <Post.AddPost />
-        <Post.AddNewPostButton />
+        <AddPost />
+        <AddNewPostButton />
       </Post>
-  </div>
+    </>
   )
 }
 

@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 import React from 'react'
-import { usePostContext } from '../../context/postContext'
+import { usePostContext } from '@contexts/postContext'
 
 const AddNewPostButton = () => {
   const { 

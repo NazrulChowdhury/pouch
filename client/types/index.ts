@@ -1,3 +1,4 @@
+
 export interface UserInput {
     name : string 
     email ?: string
@@ -9,7 +10,8 @@ export interface Platform {
     googleID?: string;
     githubID?: string;
 }
-export interface UserDocument extends Document{
+export interface UserDocument {
+    _id : string
     name : string 
     email ?: string
     picture : string
@@ -28,5 +30,6 @@ export interface PostInput {
 export interface Post extends PostInput {
     userId : string
 }
-export interface PostDocument extends Post, Document{
-}
+export interface PostDocument extends Post {
+    _id: string;
+  }

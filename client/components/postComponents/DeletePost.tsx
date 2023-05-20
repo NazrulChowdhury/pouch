@@ -1,26 +1,26 @@
 import React from 'react'
 import { Modal, message } from 'antd'
 import { useQuery } from 'react-query'
-import { deletePostById } from '../../functions/api'
-import { useNavigate } from 'react-router-dom'
-import { useGlobalContext } from '../../context/globalContext'
-import { usePostContext } from '../../context/postContext'
+import { useGlobalContext } from '@contexts/globalContext'
+import { usePostContext } from '@contexts/postContext'
+import { deletePostById } from '@services/index'
+import { useRouter } from 'next/router'
 
 const DeletePost = () => {
 
   const {postData} = usePostContext()
   const {fetchNavItems} = useGlobalContext()
-  const navigate = useNavigate()
   const confirm = Modal.confirm
+  const router = useRouter()
 
-  const {refetch:handleDeletePost} = useQuery('deletePost',() => deletePostById(postData._id),{
+  const {refetch:handleDeletePost} = useQuery('deletePost',() => deletePostById(postData!._id),{
     enabled : false,
     onSuccess : (data) => {
       message.success(data)
-      navigate('/')
-      fetchNavItems()
+      router.push('/')
+      fetchNavItems?.()
     },
-    onError : (error) => message.error(error.response.data)
+    onError : (error:any) => message.error(error.response.data)
   })
 
   const handleDelete = () => {
