@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "noImplicitAny":false, // need to remove it once migration completed. by default it is true anyway. 
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -31,6 +30,8 @@
     "components/**/*.tsx",
     "contexts/**/*.ts", 
     "contexts/**/*.tsx",
+    "services/**/*.ts", 
+    "services/**/*.tsx",
 
   ],
   "exclude": ["node_modules"]

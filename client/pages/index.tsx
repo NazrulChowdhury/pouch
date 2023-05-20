@@ -1,5 +1,5 @@
-import { AddNewPostButton, Post } from '@components/postComponents'
-import AddPost from '@components/postComponents/AddPost'
+import { AddNewPostButton, Post, AddPost } from '@components/postComponents'
+//import AddPost from '@components/postComponents/AddPost'
 import type { NextPage } from 'next'
 
 const Home: NextPage = () => {

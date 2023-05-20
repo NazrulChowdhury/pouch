@@ -1,33 +1,33 @@
 import React, { useEffect } from 'react'
 import { Menu , Layout, message} from 'antd'
-//import logo from '../../images/pouch.png'
-import logo from '../../images/devpouchT.png'
-import { useGlobalContext } from '../../context/globalContext'
+import logo from '../../public/devpouchT.png'
+import { useGlobalContext } from '@contexts/globalContext'
 import { useQuery } from 'react-query'
-import { getNavs } from '../../functions/api'
-import { Link, useNavigate } from 'react-router-dom'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { getNavs } from '@services/index'
 
 const SideNav = () => {
   const {Sider} = Layout
-  const {user, setNavs, setFetchNavItems} = useGlobalContext()
-  const navigate = useNavigate()
+  const {userSession, setNavs, setFetchNavItems} = useGlobalContext()
+  const router = useRouter()
 
   const {refetch: fetchNavItems, data } = useQuery(
     'getNavs', getNavs,{ 
       onSuccess : data => setNavs(data),
-      onError : error => message.error(error.response.data), 
+      onError : (error:any) => message.error(error.response.data), 
       enabled : false
     }
   )
 
   useEffect(() => {
     fetchNavItems()
-    setFetchNavItems(() => fetchNavItems)
+    setFetchNavItems?.(() => fetchNavItems)
   },[])
 
   return (
     <>
-      { user &&
+      { userSession &&
         <Sider
           style={{
             overflow: 'auto',
@@ -39,8 +39,8 @@ const SideNav = () => {
           }}
         > 
           <div className="logo" > 
-            <Link to='/'>
-              <img src={logo} style={{width : '100%'}}/>  
+            <Link href='/'>
+              <img src={logo.src} style={{width : '100%'}}/>  
             </Link>
           </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
@@ -48,7 +48,7 @@ const SideNav = () => {
               return (
                 <Menu.Item 
                   key={item}
-                  onClick = {() => navigate(`tag/${item}`)}
+                  onClick = {() => router.push(`tag/${item}`)}
                 >
                   {item}
                 </Menu.Item>

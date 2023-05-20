@@ -16,14 +16,14 @@ export const submitPost = async(data:PostInput):Promise<string> => {
     return response.data 
 }
 
-export const getNavs = async()=>{
+export const getNavs = async() : Promise<string[]>=>{
     const response =  await axios('/api/post/getNavs',{
         withCredentials : true
     })
     return response.data
 }
 
-export const getPostsByName = async(name) => {
+export const getPostsByTagName = async(name:string) : Promise<PostDocument[]> => {
     const response =  await axios(`/api/post/getPostsByTag/${name}`,{
         withCredentials : true
     })
@@ -48,7 +48,7 @@ export const updatePost = async(data : PostDocument) : Promise<PostDocument> => 
     return response.data 
 }
 
-export const deletePostById = async(postId) => {
+export const deletePostById = async(postId:string) : Promise<string> => {
     const response = await axios(`/api/post/deletePost/${postId}`)
     return response.data
 }

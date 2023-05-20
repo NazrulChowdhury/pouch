@@ -23,6 +23,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/antd": "^1.0.0",
     "@types/node": "20.2.0",
     "@types/react": "18.2.6",
     "eslint": "8.40.0",

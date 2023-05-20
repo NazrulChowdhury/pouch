@@ -5,7 +5,7 @@ import { message } from "antd"
 import PostForm from '../formComponents/PostForm'
 import { usePostContext } from '@contexts/postContext'
 import { submitPost } from '@services/index'
-import { PostDocument, PostInput } from '@types'
+import { PostDocument } from '@types'
 
 const AddPost = () => {
 
@@ -30,11 +30,11 @@ const AddPost = () => {
 
   return (
     <div>
-        {showNewPostForm ? 
-          <PostForm submitForm = {mutateAsync as (data: PostDocument) => void}/>
-          : 
-          null
-        }
+      {showNewPostForm ? 
+        <PostForm submitForm = {mutateAsync as (data: PostDocument) => void}/>
+        : 
+        null
+      }
     </div>
   )
 }
