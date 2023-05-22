@@ -13,6 +13,9 @@ export class ApiError implements IApiError {
     static badRequest(msg : string) {
         return new ApiError(400, msg)
     }
+    static unauthorized(msg : string) {
+        return new ApiError(401, msg)
+    }
     static internal() {
         return new ApiError(500,'internal server error')
     }
