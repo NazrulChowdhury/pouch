@@ -1,7 +1,11 @@
 import React from 'react'
 import { MenuUnfoldOutlined,MenuFoldOutlined} from '@ant-design/icons'
 
-const Burger = ({collapsed, toggle}) => {
+interface iBurger {
+  collapsed : boolean,
+  toggle : ()=> void
+}
+const Burger = ({collapsed, toggle}:iBurger) => {
   return (
     <div style={{color : 'white'}}>
         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
