@@ -25,7 +25,7 @@ const PageLayout = ({children}:{children:React.ReactNode}) => {
     fetchSession()
     setInitialRender(false)
   },[])
-  
+
   return (
     <>
       {/* { userSession ? */}

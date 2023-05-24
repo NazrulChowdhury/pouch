@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react'
-import { Menu , Layout, message} from 'antd'
-import logo from '../../public/devpouchT.png'
+import { Layout, message} from 'antd'
 import { useGlobalContext } from '@contexts/globalContext'
 import { useQuery } from 'react-query'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { getNavs } from '@services/index'
+import SearchNav from './SearchNav'
+import NavList from './NavList'
+import Logo from './Logo'
 
 const SideNav = () => {
   const {Sider} = Layout
-  const {userSession, setNavs, setFetchNavItems} = useGlobalContext()
-  const router = useRouter()
+  const {navs, setNavs, setFetchNavItems} = useGlobalContext()
 
-  const {refetch: fetchNavItems, data } = useQuery(
+  const {refetch: fetchNavItems } = useQuery(
     'getNavs', getNavs,{ 
       onSuccess : data => setNavs(data),
       onError : (error:any) => message.error(error.response.data), 
@@ -27,36 +26,20 @@ const SideNav = () => {
 
   return (
     <>
-      { userSession &&
-        <Sider
-          style={{
-            overflow: 'auto',
-            height: '100vh',
-            // position: 'fixed',
-            left: 0,
-            top: 0,
-            bottom: 0,
-          }}
-        > 
-          <div className="logo" > 
-            <Link href='/'>
-              <img src={logo.src} style={{width : '100%'}}/>  
-            </Link>
-          </div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            { data && data.map(item =>{ 
-              return (
-                <Menu.Item 
-                  key={item}
-                  onClick = {() => router.push(`tag/${item}`)}
-                >
-                  {item}
-                </Menu.Item>
-              )
-            })}
-          </Menu>
-        </Sider>
-      }
+      <Sider
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          // position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+        }}
+      > 
+        <Logo />
+        <SearchNav navs={navs} />
+        <NavList navs={navs}/> 
+      </Sider>
   </>
   )
 }

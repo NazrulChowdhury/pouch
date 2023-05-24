@@ -1,27 +1,35 @@
 import React, { useState } from 'react'
 import {  Input } from 'antd';
 import { CloseSquareOutlined } from '@ant-design/icons'
+import { useGlobalContext } from '@contexts/globalContext';
 
 interface SearchNavProps {
-    allTags : string[]
+    navs : string[]
 }
 
-const SearchNav = ({ allTags }: SearchNavProps) => {
+const SearchNav = ({ navs }: SearchNavProps) => {
 
-    const [searchedTag, setSearchedTag] = useState<string[]>([]) 
+    const { setSearchedTags } = useGlobalContext()
+    const [inputValue, setInputValue] = useState('')
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value)
         const searchValue = e.target.value
-        const matchingTags = allTags.filter(tag =>
+        const matchingTags = navs.filter(tag =>
           tag.toLowerCase().includes(searchValue.toLowerCase())
         );
-        setSearchedTag(matchingTags)
+        setSearchedTags(matchingTags)
+    }
+    const clearTags = (e:React.MouseEvent<HTMLSpanElement, MouseEvent>) => { 
+        setInputValue('')
+        setSearchedTags([])
     }
 
     return (
         <>
             <Input 
-                addonAfter={<CloseSquareOutlined />}
+                addonAfter={<CloseSquareOutlined onClick={clearTags}/>}
                 onChange = {handleSearch}
+                value={inputValue}
             />
         </>
     )
