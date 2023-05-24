@@ -18,22 +18,24 @@ const index = () => {
 
     return (
         <div>
-            {data && 
-            <List 
-                itemLayout="horizontal"
-                dataSource={data}
-                renderItem={item => (
-                    <Link href ={`/post/${item._id}`}>
-                        <List.Item style={{background : 'white'}}>
-                            <List.Item.Meta 
-                                style={{marginLeft : '10px', fontWeight : 'bold'}}
-                                //title={item.postTitle}
-                                description={item.title}
-                            />
-                        </List.Item>
-                    </Link>
-                )}
-            />}
+            {data?.length ? 
+                <List 
+                    itemLayout="horizontal"
+                    dataSource={data}
+                    renderItem={item => ( 
+                        <Link href ={`/post/${item._id}`}>
+                            <List.Item style={{background : 'white'}}>
+                                <List.Item.Meta 
+                                    style={{marginLeft : '10px', fontWeight : 'bold'}}
+                                    //title={item.postTitle}
+                                    description={item.title}
+                                />
+                            </List.Item>
+                        </Link>
+                    )}
+                />
+            :null
+            }
         </div>
     )
 }

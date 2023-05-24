@@ -9,9 +9,9 @@ export const getSession = async() :  Promise<SessionData | null> => {
 export const submitPost = async(data:PostInput):Promise<string> => {
     const response =  await axios({
         method : 'POST',
-        url : '/api/post/createPost',
+        url : '/api/post',
         withCredentials : true,
-        data : {data}
+        data : data
     })
     return response.data 
 }
@@ -24,7 +24,7 @@ export const getNavs = async() : Promise<string[]>=>{
 }
 
 export const getPostsByTagName = async(name:string) : Promise<PostDocument[]> => {
-    const response =  await axios(`/api/post/getPostsByTag/${name}`,{
+    const response =  await axios(`/api/post/tag/${name}`,{
         withCredentials : true
     })
     return response.data
