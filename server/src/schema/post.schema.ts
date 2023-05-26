@@ -1,5 +1,5 @@
 
-import { object, string, TypeOf } from "zod";
+import { object, string } from "zod";
 import { POST_DESCRIPTION_MAX_LIMIT, POST_TAGS_MAX_LIMIT, POST_TITLE_MAX_LIMIT } from "../environment";
 
 
