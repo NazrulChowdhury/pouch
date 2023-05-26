@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, message } from 'antd'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { useGlobalContext } from '@contexts/globalContext'
 import { usePostContext } from '@contexts/postContext'
 import { deletePostById } from '@services/index'
@@ -13,14 +13,15 @@ const DeletePost = () => {
   const confirm = Modal.confirm
   const router = useRouter()
 
-  const {refetch:handleDeletePost} = useQuery('deletePost',() => deletePostById(postData!._id),{
-    enabled : false,
+  const {mutateAsync:handleDeletePost} = useMutation(() => deletePostById(postData!._id),{
     onSuccess : (data) => {
       message.success(data)
       router.push('/')
       fetchNavItems?.()
     },
-    onError : (error:any) => message.error(error.response.data)
+    onError : (error:any) => {
+      message.error(error.response.data)
+    }
   })
 
   const handleDelete = () => {

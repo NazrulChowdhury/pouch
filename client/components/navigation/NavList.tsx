@@ -19,7 +19,7 @@ const NavList = ({navs}: NavListProps) => {
                         return (
                             <Menu.Item 
                                 key={`searched-${item}`}
-                                onClick = {() => router.push(`tag/${item}`)}
+                                onClick = {() => router.push(`/tag/${item}`)}
                             >
                                 {item}
                             </Menu.Item>
@@ -30,7 +30,7 @@ const NavList = ({navs}: NavListProps) => {
                         return (
                             <Menu.Item 
                                 key={`nav-${item}`}
-                                onClick = {() => router.push(`tag/${item}`)}
+                                onClick = {() => router.push(`/tag/${item}`)}
                             >
                                 {item}
                             </Menu.Item>

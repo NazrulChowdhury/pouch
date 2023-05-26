@@ -9,7 +9,7 @@ import { UseMutateAsyncFunction } from "react-query/types/react/types"
 
 interface IPostForm {
   submitForm : (data: PostDocument) => void
-  data ?: PostInput
+  data ?: PostDocument
 }
 
 const PostForm = ({submitForm, data}:IPostForm) => {
@@ -39,12 +39,15 @@ const PostForm = ({submitForm, data}:IPostForm) => {
     resolver: yupResolver(schema), defaultValues
   })
 
-  const onSubmit = data => {
+  const onSubmit = (formData:any) => {
     if(!selectedTags.length) {
       setTagError('please select at least one tag or add a new tag!')
-    } else {
-    data.tags = selectedTags 
-    submitForm(data) 
+    } else {      
+      submitForm({
+        ...formData, 
+        tags : selectedTags,
+        ...(data && {_id : data._id})
+      }) 
     }
   }
 

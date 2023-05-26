@@ -1,5 +1,5 @@
 import { PostDocument, PostInput, SessionData } from "@types"
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 
 export const getSession = async() :  Promise<SessionData | null> => {
     const response =  await axios('/api/getSession',{withCredentials : true})
@@ -31,7 +31,7 @@ export const getPostsByTagName = async(name:string) : Promise<PostDocument[]> =>
 }
 
 export const getPostById = async (id:string) : Promise<PostDocument> => {
-    const response = await axios(`/api/post/getPost/${id}`,{
+    const response = await axios(`/api/post/${id}`,{
         withCredentials : true
     })
     return response.data
@@ -40,16 +40,20 @@ export const getPostById = async (id:string) : Promise<PostDocument> => {
 export const updatePost = async(data : PostDocument) : Promise<PostDocument> => {
     const {userId, ...postData} = data
     const response = await axios({
-        method : 'POST',
+        method : 'PUT',
         withCredentials : true,
         url : `/api/post/updatePost`,
-        data : {postData}
+        data : postData
     })
     return response.data 
 }
 
 export const deletePostById = async(postId:string) : Promise<string> => {
-    const response = await axios(`/api/post/deletePost/${postId}`)
+    const response = await axios({
+        method : 'DELETE',
+        withCredentials : true,
+        url:`/api/post/${postId}`
+    })
     return response.data
 }
 

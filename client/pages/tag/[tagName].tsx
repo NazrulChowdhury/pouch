@@ -14,7 +14,7 @@ const index = () => {
     })
     useEffect(() =>{ 
         tagName && refetch()
-    },[router.isReady])
+    },[router.isReady, tagName])
 
     return (
         <div>
