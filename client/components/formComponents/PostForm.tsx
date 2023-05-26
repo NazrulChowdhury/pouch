@@ -65,7 +65,7 @@ const PostForm = ({submitForm, data}:IPostForm) => {
       />
       <p style={{color : 'red'}}>{errors.title?.message}</p>
         
-      <textarea {...register("description")} />
+      <textarea style={{width:'80%', height:'400px'}}{...register("description")} />
       <p style={{color : 'red'}}>{errors.description?.message}</p>
 
       <MultiSelect 
