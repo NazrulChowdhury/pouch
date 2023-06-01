@@ -20,6 +20,7 @@
       "@contexts/*" : ["contexts/*"],
       "@services/*" : ["services/*"],
       "@types" : ["types"],
+      "@pages/*" : ["pages/*"]
     }
   },
   "include": [
@@ -34,5 +35,9 @@
     "services/**/*.tsx",
 
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "jest.config.ts", 
+    "jest.setup.ts"
+  ]
 }

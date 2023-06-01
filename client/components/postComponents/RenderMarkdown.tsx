@@ -11,10 +11,8 @@ interface IRenderMarkdownProps {
 const RenderMarkdown = ({ postData } : IRenderMarkdownProps) => {
 
     const markdownContent = postData?.description
-    //const codeBlocks = markdownContent?.match(/```([\s\S]*?)```/gms); 
     const codeBlocks = markdownContent?.match(/```([\s\S]*?)```/gms)
-
-console.log('codeBlocks----------------', codeBlocks?.length)
+    
     if (!codeBlocks) {
       return <Markdown>{String(markdownContent)}</Markdown>
     }
