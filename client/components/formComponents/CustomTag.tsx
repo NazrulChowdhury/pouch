@@ -1,12 +1,12 @@
 import { Button } from "antd"
 import React, { useState } from "react"
-import { LabelType } from "./MultiSelect"
+import { CustomLabelType } from "./MultiSelect"
 
 interface CustomTagProps {
   selectedTags : string[]
   setSelectedTags :  React.Dispatch<React.SetStateAction<string[]>>
-  optionSelected :  LabelType[] 
-  setOptionSelected : React.Dispatch<React.SetStateAction<LabelType[] >>
+  optionSelected :  CustomLabelType[] 
+  setOptionSelected : React.Dispatch<React.SetStateAction<CustomLabelType[] >>
 }
 
 const CustomTag = ({selectedTags, setSelectedTags, optionSelected, setOptionSelected} : CustomTagProps) => {
@@ -17,8 +17,8 @@ const CustomTag = ({selectedTags, setSelectedTags, optionSelected, setOptionSele
 
   const addHandler = () => {
     if(newTag){
-      if(newTag.length > 50){
-        setTagError('tag is too long! maximum 50 characters allowed')
+      if(newTag.length > 20){
+        setTagError('tag is too long! maximum 20 characters allowed')
         return
       }
       setSelectedTags([...selectedTags,newTag])
