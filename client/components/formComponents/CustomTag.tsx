@@ -1,7 +1,15 @@
 import { Button } from "antd"
 import React, { useState } from "react"
+import { LabelType } from "./MultiSelect"
 
-const CustomTag = ({selectedTags, setSelectedTags, optionSelected, setOptionSelected}) => {
+interface CustomTagProps {
+  selectedTags : string[]
+  setSelectedTags :  React.Dispatch<React.SetStateAction<string[]>>
+  optionSelected :  LabelType[] 
+  setOptionSelected : React.Dispatch<React.SetStateAction<LabelType[] >>
+}
+
+const CustomTag = ({selectedTags, setSelectedTags, optionSelected, setOptionSelected} : CustomTagProps) => {
   const [ShowInput, setShowInput] = useState(false)
   const [showAddTags, setShowAddTags] = useState(true)
   const [newTag, setNewTag] = useState('')
