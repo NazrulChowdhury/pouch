@@ -1,7 +1,11 @@
 import { Button } from 'antd'
 import React from 'react'
 
-const Cancel = ({handleEditCancel}) => {
+interface CancelProps {
+  handleEditCancel:() => void
+}
+
+const Cancel = ({handleEditCancel} : CancelProps) => {
   return (
     <Button onClick={handleEditCancel}>
         Cancel

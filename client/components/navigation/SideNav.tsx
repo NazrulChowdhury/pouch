@@ -25,22 +25,20 @@ const SideNav = () => {
   },[])
 
   return (
-    <>
-      <Sider
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          // position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-        }}
-      > 
-        <Logo />
-        <SearchNav navs={navs} />
-        <NavList navs={navs}/> 
-      </Sider>
-  </>
+    <Sider
+      style={{
+        overflow: 'auto',
+        height: '100vh',
+        // position: 'fixed',
+        left: 0,
+        top: 0,
+        bottom: 0,
+      }}
+    > 
+      <Logo />
+      <SearchNav navs={navs} />
+      <NavList navs={navs}/> 
+    </Sider>
   )
 }
 
