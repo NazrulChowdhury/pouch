@@ -9,13 +9,13 @@ interface MultiSelectPropsType {
   options : string[]
 }
 export interface CustomLabelType {
-    value: string
-    label: string
+  value: string
+  label: string
 }
 
 const MultiSelect = ({selectedTags, setSelectedTags, options } : MultiSelectPropsType) => { 
 
- const [optionSelected, setOptionSelected] = useState<CustomLabelType[]>([])
+  const [optionSelected, setOptionSelected] = useState<CustomLabelType[]>([])
   const labeledOptions = options.map(item => {
     return {
       value : item,
@@ -62,7 +62,7 @@ const MultiSelect = ({selectedTags, setSelectedTags, options } : MultiSelectProp
         // class="d-inline-block"
         data-toggle="popover"
         data-trigger="focus"
-        data-content="Please selecet account(s)"
+        data-content="Please select tag(s)"
       >
         <ReactSelect
           options={labeledOptions}
