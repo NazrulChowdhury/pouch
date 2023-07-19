@@ -32,4 +32,8 @@ export interface Post extends PostInput {
 }
 export interface PostDocument extends Post {
     _id: string;
-  }
+}
+export interface IPostForm {
+    submitForm : (data: PostDocument) => void
+    data ?: PostDocument
+}

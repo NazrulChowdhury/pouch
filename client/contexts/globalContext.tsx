@@ -12,7 +12,7 @@ interface GlobalContextProps {
     setFetchNavItems?: React.Dispatch<React.SetStateAction<() => void>>
   }
 
-const GlobalContext = createContext<GlobalContextProps | undefined>(undefined)
+export const GlobalContext = createContext<GlobalContextProps | undefined>(undefined)
 export const useGlobalContext = () => useContext(GlobalContext) as GlobalContextProps
 
 

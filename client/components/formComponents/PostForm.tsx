@@ -61,7 +61,7 @@ const PostForm = ({submitForm, data}:IPostForm) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <input 
         {...register("title")} 
-        placeholder = 'title here'
+        placeholder = 'Write a short title'
       />
       <p style={{color : 'red'}}>{errors.title?.message}</p>
         
