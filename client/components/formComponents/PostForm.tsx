@@ -4,15 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import MultiSelect from "./MultiSelect"
 import { useGlobalContext } from "@contexts/globalContext"
-import { PostDocument, PostInput } from "@types"
+import { IPostFormProps, PostDocument, PostInput } from "@types"
 import { UseMutateAsyncFunction } from "react-query/types/react/types"
 
-interface IPostForm {
-  submitForm : (data: PostDocument) => void
-  data ?: PostDocument
-}
-
-const PostForm = ({submitForm, data}:IPostForm) => {
+const PostForm = ({submitForm, data}:IPostFormProps) => {
   const {navs} = useGlobalContext()
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [tagError, setTagError] = useState('')
