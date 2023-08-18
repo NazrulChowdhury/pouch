@@ -27,34 +27,51 @@ const CustomTag = ({selectedTags, setSelectedTags, optionSelected, setOptionSele
       setTagError('')
     } 
   }
+  const inputDisplay = (option : 'show' | 'hide') => {
+    if(option === 'show'){
+      setShowInput(true)
+      setShowAddTags(false)
+      return
+    }
+    setShowInput(false)
+    setShowAddTags(true)
+  }
 
   return (
     <div>
       { showAddTags &&
-      <div>
-        <Button
-          onClick={() => {
-            setShowInput(true)
-            setShowAddTags(false)
-          }}
-        >
-          add new tag 
-        </Button>
-      </div>
+        <div>
+          <Button
+            onClick={() => {
+              inputDisplay('show')
+            }}
+          >
+            add new tag 
+          </Button>
+        </div>
       }
-      {ShowInput && 
-      <div>
-        <input 
-          type='text' 
-          value={newTag}
-          onChange={(e)=> setNewTag(e.target.value)}
-        />
-        <Button
-          onClick={() => addHandler()}
-        >
-          add
-        </Button>
-      </div>
+      { ShowInput && 
+        <div>
+          <input 
+            type='text' 
+            value={newTag}
+            onChange={(e)=> setNewTag(e.target.value)}
+          />
+          <Button
+            onClick={() => addHandler()}
+          >
+            add
+          </Button>
+          { !showAddTags && 
+              <Button
+                onClick={() => {
+                  inputDisplay('hide')
+                }}
+              >
+                cancel
+              </Button>
+          }
+        </div>
       }
       {tagError && <p style={{color : 'red'}}>{tagError}</p>}
     </div>
