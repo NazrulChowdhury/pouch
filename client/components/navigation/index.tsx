@@ -3,12 +3,12 @@ import React from 'react'
 import SideNav from './SideNav'
 
 export const Navigation = () => {
-    const { userSession} = useGlobalContext()
-    return (
+  const { userSession} = useGlobalContext()
+  return (
     <>
       {
         userSession ? <SideNav /> : null
       }     
     </>
-    )
+  )
 }
