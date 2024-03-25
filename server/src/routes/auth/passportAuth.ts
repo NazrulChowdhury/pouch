@@ -5,7 +5,8 @@ const passportRouter = express.Router()
 //google
 passportRouter.get('/google',
   //@ts-ignore
-  passport.authenticate('google', { scope: ['profile', ,'email'] }))
+  passport.authenticate('google', { scope: ['profile','email'] })
+)
 
 passportRouter.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: `${process.env.CLIENT_HOST_URL}/login` }), 

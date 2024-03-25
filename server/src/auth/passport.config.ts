@@ -13,7 +13,7 @@ passport.deserializeUser((id, done)=> done(null, id as string))
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID!,
     clientSecret: GOOGLE_CLIENT_SECRET!,
-    callbackURL: `${SERVER_HOST_URL}/auth/google/callback`
+    callbackURL: `${SERVER_HOST_URL}/auth/google/callback/`
   },
   async function(accessToken, refreshToken, profile, done) {
     try{
