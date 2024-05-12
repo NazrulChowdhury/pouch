@@ -1,7 +1,7 @@
-FROM node:18.18.0
-WORKDIR /app
+FROM node:18.20.2
+WORKDIR /clientApp
 COPY package*.json .
-RUN npm ci
+RUN npm install
 COPY . .
 EXPOSE 3000
 CMD [ "npm", "run", "dev" ]

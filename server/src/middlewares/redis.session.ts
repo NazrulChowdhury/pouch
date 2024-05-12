@@ -8,8 +8,8 @@ dotenv.config()
 const RedisStore = connectRedis(session)
 //Configure redis client
 const redisClient = redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT!)  
+    host: process.env.REDIS_HOST || 'redis',
+    port: parseInt(process.env.REDIS_PORT) || 6379
 })
 redisClient.on('error', function (err) {
     console.log('Could not establish a connection with redis. ' + err)
